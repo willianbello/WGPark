@@ -3,6 +3,8 @@
     <ul>
         <li><h2>Informações:</h2></li>
         <li><strong>Projeto criado por Willian Bello e Giovani Lima</strong></li>
+        <li><a href="https://github.com/willianbello">Willian Bello</a></li>
+        <li><a href="https://github.com/xEveRLasT">Giovani Lima</a></li>
         <li>Aplicativo para controle de entrada e saída de veículos de um estacionamento</li>
     </ul>
     <ul>
