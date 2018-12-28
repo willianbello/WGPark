@@ -9,7 +9,7 @@
     </ul>
     <ul>
         <li><h2>Objetivos:</h2></li>
-        <li>Pesquisar e colocar em prática os conhecimentos adquiridos ao longo do tempo em HTML, CSS, Javascript, Python, Flask, Request.</li>
+        <li>Pesquisar e colocar em prática os conhecimentos adquiridos ao longo do tempo em HTML, CSS, Javascript, Bootstrap, Python, Flask, Request.</li>
     </ul>
     <ul>
         <li><h2>Requisitos:</h2></li>
