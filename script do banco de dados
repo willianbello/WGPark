@@ -1,0 +1,24 @@
+create table carro(
+  pkcodcar integer not null,
+  placacar varchar(7) not nul);
+
+create table vaga(
+  pkcodvg integer not null,
+  nunvagavg integer not null);
+
+create table entrada(
+  pkcodentr integer not null,
+  dataentr date not null,
+  horaentr timestamp not null,
+  situacaoentr bool not null,
+  fkcodcar integer not null,
+  fkcodvg integer not null);
+
+create table saida(
+  pkcodsd integer not null,
+  datasd date not null,
+  horasd timestamp not null,
+  fkcodcar integer not null,
+  fkcodvg integer not null,
+  fkcodentr integer not null,
+  situacaosd bool not null);
