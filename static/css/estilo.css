@@ -1,0 +1,20 @@
+.centraliza {
+    margin: auto;
+}
+
+.centraliza img {
+    margin: 50% auto;
+    padding: 0px;
+    width: 250px;
+}
+
+fieldset {
+    border: 1px solid rgb(167, 163, 163);
+    padding: 0 1.4em 1.4em 1.4em;
+    text-align: center;
+    color: rgb(167, 163, 163);
+}
+
+input {
+    text-align: center;
+}
