@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+﻿from flask import Flask, render_template
 
 #instancia o app
 app = Flask(__name__)
@@ -12,6 +12,6 @@ def index():
 #inicia o servidor
 if __name__ == "__main__":
     app.run()
-
+#acesso a url
 url_for('static', filename='bootstrap/css/bootstrap.min.css')
 
