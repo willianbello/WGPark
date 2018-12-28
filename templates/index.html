@@ -1,13 +1,322 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="pt">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Index</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{{url_for('static', filename='estilos/main.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='bootstrap/css/bootstrap.min.css')}}">
+
+    <title>WGPark - Estacionamentos</title>
+    <link rel="icon" type="image/png" href="{{url_for('static', filename='imagens/icone.png')}}">
+    <script defer src="https://use.fontawesome.com/releases/v5.6.3/js/all.js" integrity="sha384-EIHISlAOj4zgYieurP0SdoiBYfGJKkgWedPHH4jCzpCXLmzVsw1ouK59MuUtP4a1" crossorigin="anonymous"></script>
+    <script src="{{url_for('static', filename='jQuery/jquery-3.3.1.min.js')}}"></script>
+    <script>
+        $(document).ready(function() {
+            var link = $('.navbar li a');
+            var subir = $('.botaoScroll');
+            $(link).click(function() {
+                var seletor = $(this).attr("href");
+                var posicao = $(seletor).offset().top;
+                $("html, body").animate({
+                    scrollTop: posicao - 50
+                }, 1000);
+            });
+            $(subir).click(function() {
+                $("html, body").animate({
+                    scrollTop: 0
+                }, 500);
+            });
+            $(window).scroll(function() {
+                var minhaPosicao = $(this).scrollTop();
+                if (minhaPosicao >= 400) {
+                    subir.fadeIn()
+                } else {
+                    subir.fadeOut();
+                }
+            });
+        });
+    </script>
+
 </head>
 
 <body>
-    <h1>Index</h1>
+
+    <header>
+        <div class="menuNavegacao fixed-top">
+            <div class="container fixed-top">
+                <nav class="navbar navbar-expand-lg m-2 navbar-light menuCores">
+                    <span class="navbar-brand">
+                        <img src="{{url_for('static', filename='imagens/LogoSite.png')}}" class="logo">
+                    </span>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ml-auto ml-3">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#historico">Histórico</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Admin
+                            </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="#">Configurações</a>
+                                    <a class="dropdown-item" href="#">Logout</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col-md-12">
+                <h2 class="titulos">No Pátio</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-striped table-bordered table-hover table-success">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Placa - Veículos</th>
+                            <th scope="col">Entrada</th>
+                            <th scope="col">Situação</th>
+                            <th scope="col">Finalizar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>XXX-XXXX</td>
+                            <td>28-12-2018 13:30</td>
+                            <td>Ativo</td>
+                            <td>
+                                <span class="fas fa-times-circle"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td>XXX-XXXX</td>
+                            <td>28-12-2018 13:30</td>
+                            <td>Ativo</td>
+                            <td>
+                                <span class="fas fa-times-circle"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td>XXX-XXXX</td>
+                            <td>28-12-2018 13:30</td>
+                            <td>Ativo</td>
+                            <td>
+                                <span class="fas fa-times-circle"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">4</th>
+                            <td>XXX-XXXX</td>
+                            <td>28-12-2018 13:30</td>
+                            <td>Ativo</td>
+                            <td>
+                                <span class="fas fa-times-circle"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">5</th>
+                            <td>XXX-XXXX</td>
+                            <td>28-12-2018 13:30</td>
+                            <td>Ativo</td>
+                            <td>
+                                <span class="fas fa-times-circle"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">6</th>
+                            <td>XXX-XXXX</td>
+                            <td>28-12-2018 13:30</td>
+                            <td>Ativo</td>
+                            <td>
+                                <span class="fas fa-times-circle"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">7</th>
+                            <td>XXX-XXXX</td>
+                            <td>28-12-2018 13:30</td>
+                            <td>Ativo</td>
+                            <td>
+                                <span class="fas fa-times-circle"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">8</th>
+                            <td>XXX-XXXX</td>
+                            <td>28-12-2018 13:30</td>
+                            <td>Ativo</td>
+                            <td>
+                                <span class="fas fa-times-circle"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">9</th>
+                            <td>XXX-XXXX</td>
+                            <td>28-12-2018 13:30</td>
+                            <td>Ativo</td>
+                            <td>
+                                <span class="fas fa-times-circle"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">10</th>
+                            <td>XXX-XXXX</td>
+                            <td>28-12-2018 13:30</td>
+                            <td>Ativo</td>
+                            <td>
+                                <span class="fas fa-times-circle"></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="titulos" id="historico">Histórico</h2>
+            </div>
+        </div>
+
+        <table class="table table-striped table-bordered table-hover table-danger">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Placa - Veículos</th>
+                    <th scope="col">Entrada</th>
+                    <th scope="col">Saída</th>
+                    <th scope="col">Situação</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>XXX-XXXX</td>
+                    <td>28-12-2018 13:30</td>
+                    <td>28-12-2018 13:30</td>
+                    <td>Finalizado</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>XXX-XXXX</td>
+                    <td>28-12-2018 13:30</td>
+                    <td>28-12-2018 13:30</td>
+                    <td>Finalizado</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td>XXX-XXXX</td>
+                    <td>28-12-2018 13:30</td>
+                    <td>28-12-2018 13:30</td>
+                    <td>Finalizado</td>
+                </tr>
+                <tr>
+                    <th scope="row">4</th>
+                    <td>XXX-XXXX</td>
+                    <td>28-12-2018 13:30</td>
+                    <td>28-12-2018 13:30</td>
+                    <td>Finalizado</td>
+                </tr>
+                <tr>
+                    <th scope="row">5</th>
+                    <td>XXX-XXXX</td>
+                    <td>28-12-2018 13:30</td>
+                    <td>28-12-2018 13:30</td>
+                    <td>Finalizado</td>
+                </tr>
+                <tr>
+                    <th scope="row">6</th>
+                    <td>XXX-XXXX</td>
+                    <td>28-12-2018 13:30</td>
+                    <td>28-12-2018 13:30</td>
+                    <td>Finalizado</td>
+                </tr>
+                <tr>
+                    <th scope="row">7</th>
+                    <td>XXX-XXXX</td>
+                    <td>28-12-2018 13:30</td>
+                    <td>28-12-2018 13:30</td>
+                    <td>Finalizado</td>
+                </tr>
+                <tr>
+                    <th scope="row">8</th>
+                    <td>XXX-XXXX</td>
+                    <td>28-12-2018 13:30</td>
+                    <td>28-12-2018 13:30</td>
+                    <td>Finalizado</td>
+                </tr>
+                <tr>
+                    <th scope="row">9</th>
+                    <td>XXX-XXXX</td>
+                    <td>28-12-2018 13:30</td>
+                    <td>28-12-2018 13:30</td>
+                    <td>Finalizado</td>
+                </tr>
+                <tr>
+                    <th scope="row">10</th>
+                    <td>XXX-XXXX</td>
+                    <td>28-12-2018 13:30</td>
+                    <td>28-12-2018 13:30</td>
+                    <td>Finalizado</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- botão subir -->
+    <button class=" btn btn-dark botaoScroll">Subir</button>
+
+    <footer>
+        <div class="rodape">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-2">
+                        <span>
+                            <img src="{{url_for('static', filename='imagens/LogoSite.png')}}" class="logo mt-2">
+                        </span>
+                    </div>
+
+                    <div class="col-md-5">
+                        <span>
+                            Desenvolvido e criado por: Willian Bello e Giovani Lima
+                        </span>
+                    </div>
+
+                    <div class="col-md-5">
+                        <span>Controle de Entrada e Saída de Veículos</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        </div>
+    </footer>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="{{url_for('static', filename='bootstrap/js/bootstrap.min.js')}}"></script>
 </body>
 
 </html>
