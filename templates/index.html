@@ -5,46 +5,53 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!--[if lte IE 7]><link rel="stylesheet" type="text/css" href="/content/css2/style_ie.css" /><![endif]-->
+
+    <!--[if lte IE 6]><script src="/scripts/pnghack.js" type="text/javascript"></script><![endif]-->
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{url_for('static', filename='estilos/main.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='bootstrap/css/bootstrap.min.css')}}">
+    <link rel="script" href="{{url_for('static', filename='bootstrap/js/bootstrap.min.js')}}">
+    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.2r1/build/reset/reset-min.css">
 
     <title>WGPark - Estacionamentos</title>
     <link rel="icon" type="image/png" href="{{url_for('static', filename='imagens/icone.png')}}">
     <script defer src="https://use.fontawesome.com/releases/v5.6.3/js/all.js" integrity="sha384-EIHISlAOj4zgYieurP0SdoiBYfGJKkgWedPHH4jCzpCXLmzVsw1ouK59MuUtP4a1" crossorigin="anonymous"></script>
     <script src="{{url_for('static', filename='jQuery/jquery-3.3.1.min.js')}}"></script>
+    <script src="{{url_for('static', filename='javascript/index.js')}}"></script>
     <script>
-        $(document).ready(function() {
-            var link = $('.navbar li a');
-            var subir = $('.botaoScroll');
-            $(link).click(function() {
-                var seletor = $(this).attr("href");
-                var posicao = $(seletor).offset().top;
-                $("html, body").animate({
-                    scrollTop: posicao - 50
-                }, 1000);
-            });
-            $(subir).click(function() {
-                $("html, body").animate({
-                    scrollTop: 0
-                }, 500);
-            });
-            $(window).scroll(function() {
-                var minhaPosicao = $(this).scrollTop();
-                if (minhaPosicao >= 400) {
-                    subir.fadeIn()
-                } else {
-                    subir.fadeOut();
-                }
-            });
-        });
-    </script>
+        function iniciar() {
+            setInterval(mostrarData, 1000);
+        }
 
+        function mostrarData() {
+
+            var data = new Date();
+
+            var dia = data.getDate(); // 1-31
+            var mes = data.getMonth(); // 0-11 (zero=janeiro)
+            var ano4 = data.getFullYear(); // 4 dígitos
+
+            var hora = data.getHours(); // 0-23
+            var min = data.getMinutes(); // 0-59
+            var seg = data.getSeconds(); // 0-59
+
+            if (hora < 10) hora = "0" + hora
+            if (min < 10) min = "0" + min
+            if (seg < 10) seg = "0" + seg
+
+            var str_data = dia + '/' + (mes + 1) + '/' + ano4;
+            var str_hora = hora + ':' + min + ':' + seg;
+
+            document.getElementById('dia').value = str_data;
+            document.getElementById('hora').value = str_hora;
+            document.getElementById('horario').value = str_hora;
+        }
+    </script>
 </head>
 
-<body>
-
+<body onload="iniciar()">
     <header>
         <div class="menuNavegacao fixed-top">
             <div class="container fixed-top">
@@ -59,7 +66,7 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ml-auto ml-3">
                             <li class="nav-item">
-                                <a class="nav-link" href="#historico">Histórico</a>
+                                <a class="nav-link" href="#historico" id="linkHistorico">Histórico</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -76,10 +83,50 @@
             </div>
         </div>
     </header>
+
     <div class="container">
         <div class="row mt-5">
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <h2 class="titulos">No Pátio</h2>
+                <span style="">Hora Atual: </span><input id="hora" readonly style="border: none; padding: auto; font-family: 'Playfair Display', serif; font-size: 25px">
+            </div>
+            <div class="col-md-6">
+
+                <button type="button" class="btn btn-outline-success titulos" data-toggle="modal" data-target="#adicionar">
+                    <span class="fas fa-plus"></span> Adicionar Veículo
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="adicionar" tabindex="-1" role="dialog" aria-labelledby="adicionar veiculo" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <form>
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Adicionar</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                </div>
+                                <div class="modal-body">
+
+                                    <label for="#placa">Placa do Veículo</label>
+                                    <input type="text" placeholder="XXX-XXXX" id="placa" class="form-control" required>
+                                    <br>
+                                    <span>Data:</span>
+                                    <input type="text" readonly id="dia">
+                                    <br><br>
+                                    <span>Hora:</span>
+                                    <input type="text" readonly id="horario">
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                                    <button type="submit" class="btn btn-success">Adicionar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -284,7 +331,9 @@
     </div>
 
     <!-- botão subir -->
-    <button class=" btn btn-dark botaoScroll">Subir</button>
+    <div class="container">
+        <button class=" btn btn-dark fixed-bottom" id="botaoSubir" style="left: 80px;bottom: 80px;">Subir</button>
+    </div>
 
     <footer>
         <div class="rodape">
@@ -314,7 +363,6 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="{{url_for('static', filename='bootstrap/js/bootstrap.min.js')}}"></script>
 </body>
