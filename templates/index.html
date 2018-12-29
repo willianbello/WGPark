@@ -19,11 +19,39 @@
     <link rel="icon" type="image/png" href="{{url_for('static', filename='imagens/icone.png')}}">
     <script defer src="https://use.fontawesome.com/releases/v5.6.3/js/all.js" integrity="sha384-EIHISlAOj4zgYieurP0SdoiBYfGJKkgWedPHH4jCzpCXLmzVsw1ouK59MuUtP4a1" crossorigin="anonymous"></script>
     <script src="{{url_for('static', filename='jQuery/jquery-3.3.1.min.js')}}"></script>
-
     <script src="{{url_for('static', filename='javascript/index.js')}}"></script>
+    <script>
+        function iniciar() {
+            setInterval(mostrarData, 1000);
+        }
+
+        function mostrarData() {
+
+            var data = new Date();
+
+            var dia = data.getDate(); // 1-31
+            var mes = data.getMonth(); // 0-11 (zero=janeiro)
+            var ano4 = data.getFullYear(); // 4 dígitos
+
+            var hora = data.getHours(); // 0-23
+            var min = data.getMinutes(); // 0-59
+            var seg = data.getSeconds(); // 0-59
+
+            if (hora < 10) hora = "0" + hora
+            if (min < 10) min = "0" + min
+            if (seg < 10) seg = "0" + seg
+
+            var str_data = dia + '/' + (mes + 1) + '/' + ano4;
+            var str_hora = hora + ':' + min + ':' + seg;
+
+            document.getElementById('dia').value = str_data;
+            document.getElementById('hora').value = str_hora;
+            document.getElementById('horario').value = str_hora;
+        }
+    </script>
 </head>
 
-<body>
+<body onload="iniciar()">
     <header>
         <div class="menuNavegacao fixed-top">
             <div class="container fixed-top">
@@ -60,6 +88,7 @@
         <div class="row mt-5">
             <div class="col-md-6">
                 <h2 class="titulos">No Pátio</h2>
+                <span style="">Hora Atual: </span><input id="hora" readonly style="border: none; padding: auto; font-family: 'Playfair Display', serif; font-size: 25px">
             </div>
             <div class="col-md-6">
 
@@ -84,10 +113,10 @@
                                     <input type="text" placeholder="XXX-XXXX" id="placa" class="form-control" required>
                                     <br>
                                     <span>Data:</span>
-                                    <input type="text" readonly>
+                                    <input type="text" readonly id="dia">
                                     <br><br>
                                     <span>Hora:</span>
-                                    <input type="text" readonly>
+                                    <input type="text" readonly id="horario">
 
                                 </div>
                                 <div class="modal-footer">
