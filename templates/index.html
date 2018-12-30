@@ -5,56 +5,104 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!--[if lte IE 7]><link rel="stylesheet" type="text/css" href="/content/css2/style_ie.css" /><![endif]-->
-
-    <!--[if lte IE 6]><script src="/scripts/pnghack.js" type="text/javascript"></script><![endif]-->
-
+    <title>WGPark - Estacionamentos</title>
     <!-- Bootstrap CSS -->
+    <script src="{{url_for('static', filename='jQuery/jquery-3.3.1.min.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="{{url_for('static', filename='bootstrap/js/bootstrap.min.js')}}"></script>
     <link rel="stylesheet" href="{{url_for('static', filename='estilos/main.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='bootstrap/css/bootstrap.min.css')}}">
-    <link rel="script" href="{{url_for('static', filename='bootstrap/js/bootstrap.min.js')}}">
     <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.2r1/build/reset/reset-min.css">
-
-    <title>WGPark - Estacionamentos</title>
     <link rel="icon" type="image/png" href="{{url_for('static', filename='imagens/icone.png')}}">
     <script defer src="https://use.fontawesome.com/releases/v5.6.3/js/all.js" integrity="sha384-EIHISlAOj4zgYieurP0SdoiBYfGJKkgWedPHH4jCzpCXLmzVsw1ouK59MuUtP4a1" crossorigin="anonymous"></script>
-    <script src="{{url_for('static', filename='jQuery/jquery-3.3.1.min.js')}}"></script>
-    <script src="{{url_for('static', filename='javascript/index.js')}}"></script>
     <script>
-        function iniciar() {
-            setInterval(mostrarData, 1000);
-        }
+        $(document).ready(function() {
 
-        function mostrarData() {
+            iniciar();
 
-            var data = new Date();
+            function iniciar() {
+                setInterval(mostrarData, 1000);
+            }
 
-            var dia = data.getDate(); // 1-31
-            var mes = data.getMonth(); // 0-11 (zero=janeiro)
-            var ano4 = data.getFullYear(); // 4 dígitos
+            function mostrarData() {
 
-            var hora = data.getHours(); // 0-23
-            var min = data.getMinutes(); // 0-59
-            var seg = data.getSeconds(); // 0-59
+                var data = new Date();
 
-            if (hora < 10) hora = "0" + hora
-            if (min < 10) min = "0" + min
-            if (seg < 10) seg = "0" + seg
+                var dia = data.getDate(); // 1-31
+                var mes = data.getMonth(); // 0-11 (zero=janeiro)
+                var ano4 = data.getFullYear(); // 4 dígitos
 
-            var str_data = dia + '/' + (mes + 1) + '/' + ano4;
-            var str_hora = hora + ':' + min + ':' + seg;
+                var hora = data.getHours(); // 0-23
+                var min = data.getMinutes(); // 0-59
+                var seg = data.getSeconds(); // 0-59
 
-            document.getElementById('dia').value = str_data;
-            document.getElementById('hora').value = str_hora;
-            document.getElementById('horario').value = str_hora;
-        }
+                if (hora < 10) hora = "0" + hora
+                if (min < 10) min = "0" + min
+                if (seg < 10) seg = "0" + seg
+
+                var str_data = dia + '/' + (mes + 1) + '/' + ano4;
+                var str_hora = hora + ':' + min + ':' + seg;
+
+                document.getElementById('dia').value = str_data;
+                document.getElementById('hora').value = str_hora;
+                document.getElementById('horario').value = str_hora;
+            }
+
+            var link = $('#linkHistorico');
+            var subir = $('#botaoSubir');
+
+
+
+            $(window).scroll(function () {
+                var minhaPosicao = $(this).scrollTop();
+                if (minhaPosicao >= 400) {
+                    subir.fadeIn();
+                } else {
+                    subir.fadeOut();
+                }
+            });
+
+
+            $(link).click(function() {
+
+                var seletor = $(this).attr("href");
+                console.log(seletor);
+                var posicao = $(seletor).offset().top;
+                $("html, body").animate({
+                    scrollTop: posicao - 50
+                }, 1500);
+
+            });
+
+            $(subir).click(function() {
+                $("html, body").animate({
+                    scrollTop: 0
+                }, 700);
+            });
+
+            $('#adicionar').on('show.bs.modal', function (event) {
+
+                $(".containerSuperior, .menuNavegacao, .container, .container-fluid, #botaoSubir").css('filter','blur(5px) grayscale(20%)');
+                $(".containerSuperior, .menuNavegacao, .container, .container-fluid, #botaoSubir").css('-webkit-filter','blur(5px) grayscale(20%)');
+
+            });
+
+            $('#adicionar').on('hide.bs.modal', function (event) {
+                $(".containerSuperior, .menuNavegacao, .container, .container-fluid, #botaoSubir").css('filter','blur(0px) grayscale(0%)');
+                $(".containerSuperior, .menuNavegacao, .container, .container-fluid, #botaoSubir").css('-webkit-filter','blur(0px) grayscale(0%)');
+
+            });
+
+        });
+
     </script>
 </head>
 
-<body onload="iniciar()">
+<body>
+
     <header>
-        <div class="menuNavegacao fixed-top">
-            <div class="container fixed-top">
+        <div class="menuNavegacao fixed-top" id="menuPrincipal">
+            <div class="container">
                 <nav class="navbar navbar-expand-lg m-2 navbar-light menuCores">
                     <span class="navbar-brand">
                         <img src="{{url_for('static', filename='imagens/LogoSite.png')}}" class="logo">
@@ -82,289 +130,290 @@
                 </nav>
             </div>
         </div>
+        <!-- botão subir -->
+        <div>
+            <button class=" btn btn-dark fixed-bottom" id="botaoSubir" style="left: 80px;bottom: 80px">Subir</button>
+        </div>
     </header>
 
-    <div class="container">
-        <div class="row mt-5">
-            <div class="col-md-6">
-                <h2 class="titulos">No Pátio</h2>
-                <span style="">Hora Atual: </span><input id="hora" readonly style="border: none; padding: auto; font-family: 'Playfair Display', serif; font-size: 25px">
+    <div class="containerSuperior">
+
+        <div class="container">
+            <div class="row mt-5">
+                <div class="col-md-6">
+                    <h2 class="titulos">No Pátio</h2>
+                    <span style="">Hora Atual: </span><input id="hora" readonly style="border: none; padding: auto; font-family: 'Playfair Display', serif; font-size: 25px">
+                </div>
+                <div class="col-md-6">
+
+                    <button type="button" class="btn btn-outline-success titulos" id="botaoAdicionar" data-toggle="modal" data-target="#adicionar">
+                        <span class="fas fa-plus"></span> Adicionar Veículo
+                    </button>
+
+
+                </div>
             </div>
-            <div class="col-md-6">
 
-                <button type="button" class="btn btn-outline-success titulos" data-toggle="modal" data-target="#adicionar">
-                    <span class="fas fa-plus"></span> Adicionar Veículo
-                </button>
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-striped table-bordered table-hover table-success">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Placa - Veículos</th>
+                                <th scope="col">Entrada</th>
+                                <th scope="col">Situação</th>
+                                <th scope="col">Finalizar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>XXX-XXXX</td>
+                                <td>28-12-2018 13:30</td>
+                                <td>Ativo</td>
+                                <td>
+                                    <span class="fas fa-times-circle"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <td>XXX-XXXX</td>
+                                <td>28-12-2018 13:30</td>
+                                <td>Ativo</td>
+                                <td>
+                                    <span class="fas fa-times-circle"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">3</th>
+                                <td>XXX-XXXX</td>
+                                <td>28-12-2018 13:30</td>
+                                <td>Ativo</td>
+                                <td>
+                                    <span class="fas fa-times-circle"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">4</th>
+                                <td>XXX-XXXX</td>
+                                <td>28-12-2018 13:30</td>
+                                <td>Ativo</td>
+                                <td>
+                                    <span class="fas fa-times-circle"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">5</th>
+                                <td>XXX-XXXX</td>
+                                <td>28-12-2018 13:30</td>
+                                <td>Ativo</td>
+                                <td>
+                                    <span class="fas fa-times-circle"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">6</th>
+                                <td>XXX-XXXX</td>
+                                <td>28-12-2018 13:30</td>
+                                <td>Ativo</td>
+                                <td>
+                                    <span class="fas fa-times-circle"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">7</th>
+                                <td>XXX-XXXX</td>
+                                <td>28-12-2018 13:30</td>
+                                <td>Ativo</td>
+                                <td>
+                                    <span class="fas fa-times-circle"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">8</th>
+                                <td>XXX-XXXX</td>
+                                <td>28-12-2018 13:30</td>
+                                <td>Ativo</td>
+                                <td>
+                                    <span class="fas fa-times-circle"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">9</th>
+                                <td>XXX-XXXX</td>
+                                <td>28-12-2018 13:30</td>
+                                <td>Ativo</td>
+                                <td>
+                                    <span class="fas fa-times-circle"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">10</th>
+                                <td>XXX-XXXX</td>
+                                <td>28-12-2018 13:30</td>
+                                <td>Ativo</td>
+                                <td>
+                                    <span class="fas fa-times-circle"></span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
 
-                <!-- Modal -->
-                <div class="modal fade" id="adicionar" tabindex="-1" role="dialog" aria-labelledby="adicionar veiculo" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <form>
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Adicionar</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                                </div>
-                                <div class="modal-body">
+                </div>
+            </div>
 
-                                    <label for="#placa">Placa do Veículo</label>
-                                    <input type="text" placeholder="XXX-XXXX" id="placa" class="form-control" required>
-                                    <br>
-                                    <span>Data:</span>
-                                    <input type="text" readonly id="dia">
-                                    <br><br>
-                                    <span>Hora:</span>
-                                    <input type="text" readonly id="horario">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2 class="titulos" id="historico">Histórico</h2>
+                </div>
+            </div>
 
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                                    <button type="submit" class="btn btn-success">Adicionar</button>
-                                </div>
-                            </form>
+            <table class="table table-striped table-bordered table-hover table-danger">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Placa - Veículos</th>
+                        <th scope="col">Entrada</th>
+                        <th scope="col">Saída</th>
+                        <th scope="col">Situação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>XXX-XXXX</td>
+                        <td>28-12-2018 13:30</td>
+                        <td>28-12-2018 13:30</td>
+                        <td>Finalizado</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>XXX-XXXX</td>
+                        <td>28-12-2018 13:30</td>
+                        <td>28-12-2018 13:30</td>
+                        <td>Finalizado</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>XXX-XXXX</td>
+                        <td>28-12-2018 13:30</td>
+                        <td>28-12-2018 13:30</td>
+                        <td>Finalizado</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">4</th>
+                        <td>XXX-XXXX</td>
+                        <td>28-12-2018 13:30</td>
+                        <td>28-12-2018 13:30</td>
+                        <td>Finalizado</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">5</th>
+                        <td>XXX-XXXX</td>
+                        <td>28-12-2018 13:30</td>
+                        <td>28-12-2018 13:30</td>
+                        <td>Finalizado</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">6</th>
+                        <td>XXX-XXXX</td>
+                        <td>28-12-2018 13:30</td>
+                        <td>28-12-2018 13:30</td>
+                        <td>Finalizado</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">7</th>
+                        <td>XXX-XXXX</td>
+                        <td>28-12-2018 13:30</td>
+                        <td>28-12-2018 13:30</td>
+                        <td>Finalizado</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">8</th>
+                        <td>XXX-XXXX</td>
+                        <td>28-12-2018 13:30</td>
+                        <td>28-12-2018 13:30</td>
+                        <td>Finalizado</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">9</th>
+                        <td>XXX-XXXX</td>
+                        <td>28-12-2018 13:30</td>
+                        <td>28-12-2018 13:30</td>
+                        <td>Finalizado</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">10</th>
+                        <td>XXX-XXXX</td>
+                        <td>28-12-2018 13:30</td>
+                        <td>28-12-2018 13:30</td>
+                        <td>Finalizado</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+        <footer>
+            <div class="rodape">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <span>
+                                <img src="{{url_for('static', filename='imagens/LogoSite.png')}}" class="logo mt-2">
+                            </span>
+                        </div>
+
+                        <div class="col-md-5">
+                            <span>
+                                Desenvolvido e criado por: Willian Bello e Giovani Lima
+                            </span>
+                        </div>
+
+                        <div class="col-md-5">
+                            <span>Controle de Entrada e Saída de Veículos</span>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-12">
-                <table class="table table-striped table-bordered table-hover table-success">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Placa - Veículos</th>
-                            <th scope="col">Entrada</th>
-                            <th scope="col">Situação</th>
-                            <th scope="col">Finalizar</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>XXX-XXXX</td>
-                            <td>28-12-2018 13:30</td>
-                            <td>Ativo</td>
-                            <td>
-                                <span class="fas fa-times-circle"></span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>XXX-XXXX</td>
-                            <td>28-12-2018 13:30</td>
-                            <td>Ativo</td>
-                            <td>
-                                <span class="fas fa-times-circle"></span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>XXX-XXXX</td>
-                            <td>28-12-2018 13:30</td>
-                            <td>Ativo</td>
-                            <td>
-                                <span class="fas fa-times-circle"></span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">4</th>
-                            <td>XXX-XXXX</td>
-                            <td>28-12-2018 13:30</td>
-                            <td>Ativo</td>
-                            <td>
-                                <span class="fas fa-times-circle"></span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">5</th>
-                            <td>XXX-XXXX</td>
-                            <td>28-12-2018 13:30</td>
-                            <td>Ativo</td>
-                            <td>
-                                <span class="fas fa-times-circle"></span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">6</th>
-                            <td>XXX-XXXX</td>
-                            <td>28-12-2018 13:30</td>
-                            <td>Ativo</td>
-                            <td>
-                                <span class="fas fa-times-circle"></span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">7</th>
-                            <td>XXX-XXXX</td>
-                            <td>28-12-2018 13:30</td>
-                            <td>Ativo</td>
-                            <td>
-                                <span class="fas fa-times-circle"></span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">8</th>
-                            <td>XXX-XXXX</td>
-                            <td>28-12-2018 13:30</td>
-                            <td>Ativo</td>
-                            <td>
-                                <span class="fas fa-times-circle"></span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">9</th>
-                            <td>XXX-XXXX</td>
-                            <td>28-12-2018 13:30</td>
-                            <td>Ativo</td>
-                            <td>
-                                <span class="fas fa-times-circle"></span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">10</th>
-                            <td>XXX-XXXX</td>
-                            <td>28-12-2018 13:30</td>
-                            <td>Ativo</td>
-                            <td>
-                                <span class="fas fa-times-circle"></span>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
 
             </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-12">
-                <h2 class="titulos" id="historico">Histórico</h2>
             </div>
-        </div>
+        </footer>
 
-        <table class="table table-striped table-bordered table-hover table-danger">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Placa - Veículos</th>
-                    <th scope="col">Entrada</th>
-                    <th scope="col">Saída</th>
-                    <th scope="col">Situação</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>XXX-XXXX</td>
-                    <td>28-12-2018 13:30</td>
-                    <td>28-12-2018 13:30</td>
-                    <td>Finalizado</td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>XXX-XXXX</td>
-                    <td>28-12-2018 13:30</td>
-                    <td>28-12-2018 13:30</td>
-                    <td>Finalizado</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>XXX-XXXX</td>
-                    <td>28-12-2018 13:30</td>
-                    <td>28-12-2018 13:30</td>
-                    <td>Finalizado</td>
-                </tr>
-                <tr>
-                    <th scope="row">4</th>
-                    <td>XXX-XXXX</td>
-                    <td>28-12-2018 13:30</td>
-                    <td>28-12-2018 13:30</td>
-                    <td>Finalizado</td>
-                </tr>
-                <tr>
-                    <th scope="row">5</th>
-                    <td>XXX-XXXX</td>
-                    <td>28-12-2018 13:30</td>
-                    <td>28-12-2018 13:30</td>
-                    <td>Finalizado</td>
-                </tr>
-                <tr>
-                    <th scope="row">6</th>
-                    <td>XXX-XXXX</td>
-                    <td>28-12-2018 13:30</td>
-                    <td>28-12-2018 13:30</td>
-                    <td>Finalizado</td>
-                </tr>
-                <tr>
-                    <th scope="row">7</th>
-                    <td>XXX-XXXX</td>
-                    <td>28-12-2018 13:30</td>
-                    <td>28-12-2018 13:30</td>
-                    <td>Finalizado</td>
-                </tr>
-                <tr>
-                    <th scope="row">8</th>
-                    <td>XXX-XXXX</td>
-                    <td>28-12-2018 13:30</td>
-                    <td>28-12-2018 13:30</td>
-                    <td>Finalizado</td>
-                </tr>
-                <tr>
-                    <th scope="row">9</th>
-                    <td>XXX-XXXX</td>
-                    <td>28-12-2018 13:30</td>
-                    <td>28-12-2018 13:30</td>
-                    <td>Finalizado</td>
-                </tr>
-                <tr>
-                    <th scope="row">10</th>
-                    <td>XXX-XXXX</td>
-                    <td>28-12-2018 13:30</td>
-                    <td>28-12-2018 13:30</td>
-                    <td>Finalizado</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+        <!-- Modal -->
+        <div class="modal fade" id="adicionar" tabindex="-1" role="dialog" aria-labelledby="adicionar veiculo" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <form>
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="tituloModal">Adicionar Entrada</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
 
-    <!-- botão subir -->
-    <div class="container">
-        <button class=" btn btn-dark fixed-bottom" id="botaoSubir" style="left: 80px;bottom: 80px;">Subir</button>
-    </div>
+                            <label for="#placa">Placa do Veículo</label>
+                            <input type="text" placeholder="XXX-XXXX" id="placa" class="form-control" required>
+                            <br>
+                            <span>Data:</span>
+                            <input type="text" readonly id="dia">
+                            <br><br>
+                            <span>Hora:</span>
+                            <input type="text" readonly id="horario">
 
-    <footer>
-        <div class="rodape">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-2">
-                        <span>
-                            <img src="{{url_for('static', filename='imagens/LogoSite.png')}}" class="logo mt-2">
-                        </span>
-                    </div>
-
-                    <div class="col-md-5">
-                        <span>
-                            Desenvolvido e criado por: Willian Bello e Giovani Lima
-                        </span>
-                    </div>
-
-                    <div class="col-md-5">
-                        <span>Controle de Entrada e Saída de Veículos</span>
-                    </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-success">Adicionar</button>
+                        </div>
+                    </form>
                 </div>
             </div>
-
         </div>
-        </div>
-    </footer>
+    </div>
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="{{url_for('static', filename='bootstrap/js/bootstrap.min.js')}}"></script>
 </body>
 
 </html>
