@@ -3,8 +3,8 @@ import mysql.connector
 try:
     conexao = mysql.connector.connect(host='localhost',
                                       user='root',
-                                      password='admin',
-                                      database='wgpark')
+                                      password='giovani',
+                                      database='dbwgpark')
     print("Conexao está ok")
 #se não estiver, retorna um erro
 except Exception as erro:

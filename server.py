@@ -4,10 +4,17 @@
 app = Flask(__name__)
 
 #endereço da página
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 #função que retorna o html salvo na pasta templates
 def index():
-        return render_template('index.html')
+    if request.method == 'POST':
+
+        placa = request.form['placa']
+        dia = request.form['dia']
+        horario = request.form['horario']
+        return render_template('result.html', placa=placa, dia=dia, horario=horario)
+
+    return render_template('index.html')
 
 #inicia o servidor
 if __name__ == "__main__":
