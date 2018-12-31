@@ -1,4 +1,5 @@
 ﻿from flask import *
+from db import *
 
 #instancia o app
 app = Flask(__name__)
@@ -12,8 +13,8 @@ def index():
         placa = request.form['placa']
         dia = request.form['dia']
         horario = request.form['horario']
+        insert(placa)
         return render_template('result.html', placa=placa, dia=dia, horario=horario)
-
     return render_template('index.html')
 
 #inicia o servidor
