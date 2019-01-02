@@ -17,15 +17,15 @@ def connect():
         return erro
 
 
-def insert(placa):
+def insert_ent(placa, dia, horario):
 
     curl = connect()
     ordem = curl.cursor()
-    comsql = "INSERT INTO tbcarro(placacar) VALUES('%s')" %(placa)
-    ordem.execute(comsql, placa)
+    query = "INSERT INTO tbentrada(placacarentr, dataentr, horaentr) VALUES(%s, %s, %s)"
+    cadastro = (placa, dia, horario)
+    ordem.execute(query, cadastro)
     curl.commit()
-    print(comsql)
-
+    print(query)
 
 
 '''#indica o caminho até o banco de dados
@@ -44,3 +44,5 @@ comSql = "SELECT * FROM carro"
 ordem.execute(comSql)
 resultado = ordem.fetchall()
 print(resultado)'''
+
+read()

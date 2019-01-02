@@ -1,32 +1,16 @@
 CREATE SCHEMA `dbwgpark` ;
-create table tbcarro(
-  pkcodcar integer not null auto_increment,
-  placacar varchar(7) not null,
-  constraint tbcarro_pk primary key (pkcodcar));
-
-create table tbvaga(
-  pkcodvg integer not null auto_increment,
-  nunvagavg integer not null,
-  constraint tbvaga_pk primary key(pkcodvg));
 
 create table tbentrada(
   pkcodentr integer not null auto_increment,
-  dataentr varchar(10) not null,
-  horaentr varchar(8) not null,
-  fkcodcar integer not null,
-  fkcodvg integer not null,
+  placacarentr varchar(10)
+  dataentr varchar(10),
+  horaentr varchar(10),
   primary key(pkcodentr),
-  constraint tbentradafkcodcar foreign key(fkcodcar) references tbcarro(pkcodcar),
-  constraint tbentradafkcodvf foreign key(fkcodvg) references tbvaga(pkcodvg));
 
 create table tbsaida(
   pkcodsd integer not null auto_increment,
-  datasd varchar(10) not null,
-  horasd varchar(8) not null,
+  datasd varchar(10),
+  horasd varchar(8),
   primary key (pkcodsd),
-  fkcodcar integer not null,
-  fkcodvg integer not null,
-  fkcodentr integer not null,
-  constraint tbsaidafkcodcar foreign key(fkcodcar) references tbcarro(pkcodcar),
-  constraint tbsaidafkcodvg foreign key(fkcodvg) references tbvaga(pkcodvg),
+  fkcodentr integer not null auto_increment,
   constraint tbsaidafkcodentr foreign key(fkcodentr) references tbentrada(pkcodentr));

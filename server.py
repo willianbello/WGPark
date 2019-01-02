@@ -13,7 +13,7 @@ def index():
         placa = request.form['placa']
         dia = request.form['dia']
         horario = request.form['horario']
-        insert(placa)
+        insert_ent(placa, dia, horario)
         return render_template('result.html', placa=placa, dia=dia, horario=horario)
     return render_template('index.html')
 
