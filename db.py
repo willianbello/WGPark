@@ -18,13 +18,13 @@ def connect():
 
 
 def insert(placa):
-    cod = 1
+
     curl = connect()
     ordem = curl.cursor()
-    comSql = "INSERT INTO carro(pkcodcar, placacar) VALUES(%s, %s)"
-    cadastro = (cod, placa)
-    ordem.execute(comSql, cadastro)
+    comsql = "INSERT INTO tbcarro(placacar) VALUES('%s')" %(placa)
+    ordem.execute(comsql, placa)
     curl.commit()
+    print(comsql)
 
 
 
