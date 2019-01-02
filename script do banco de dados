@@ -1,24 +1,32 @@
-create table carro(
-  pkcodcar integer not null,
-  placacar varchar(7) not nul);
+CREATE SCHEMA `dbwgpark` ;
+create table tbcarro(
+  pkcodcar integer not null auto_increment,
+  placacar varchar(7) not null,
+  constraint tbcarro_pk primary key (pkcodcar));
 
-create table vaga(
-  pkcodvg integer not null,
-  nunvagavg integer not null);
+create table tbvaga(
+  pkcodvg integer not null auto_increment,
+  nunvagavg integer not null,
+  constraint tbvaga_pk primary key(pkcodvg));
 
-create table entrada(
-  pkcodentr integer not null,
-  dataentr date not null,
-  horaentr timestamp not null,
-  situacaoentr bool not null,
+create table tbentrada(
+  pkcodentr integer not null auto_increment,
+  dataentr varchar(10) not null,
+  horaentr varchar(8) not null,
   fkcodcar integer not null,
-  fkcodvg integer not null);
+  fkcodvg integer not null,
+  primary key(pkcodentr),
+  constraint tbentradafkcodcar foreign key(fkcodcar) references tbcarro(pkcodcar),
+  constraint tbentradafkcodvf foreign key(fkcodvg) references tbvaga(pkcodvg));
 
-create table saida(
-  pkcodsd integer not null,
-  datasd date not null,
-  horasd timestamp not null,
+create table tbsaida(
+  pkcodsd integer not null auto_increment,
+  datasd varchar(10) not null,
+  horasd varchar(8) not null,
+  primary key (pkcodsd),
   fkcodcar integer not null,
   fkcodvg integer not null,
   fkcodentr integer not null,
-  situacaosd bool not null);
+  constraint tbsaidafkcodcar foreign key(fkcodcar) references tbcarro(pkcodcar),
+  constraint tbsaidafkcodvg foreign key(fkcodvg) references tbvaga(pkcodvg),
+  constraint tbsaidafkcodentr foreign key(fkcodentr) references tbentrada(pkcodentr));
