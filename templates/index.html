@@ -40,6 +40,9 @@
                 if (min < 10) min = "0" + min
                 if (seg < 10) seg = "0" + seg
 
+                if (dia < 10) dia = "0" + dia;
+                if (mes < 10) mes = "" + mes;
+
                 var str_data = dia + '/' + (mes + 1) + '/' + ano4;
                 var str_hora = hora + ':' + min + ':' + seg;
 

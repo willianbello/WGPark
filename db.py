@@ -8,7 +8,7 @@ def connect():
         conexao = mysql.connector.connect(host='localhost',
                                           user='root',
                                           password='admin',
-                                          database='dbwgpark')
+                                          database='sys')
         print("Conexao está ok", conexao)
         return conexao
     # se não estiver, retorna um erro
@@ -44,5 +44,3 @@ comSql = "SELECT * FROM carro"
 ordem.execute(comSql)
 resultado = ordem.fetchall()
 print(resultado)'''
-
-read()
