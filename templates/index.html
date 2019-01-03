@@ -169,18 +169,15 @@
                         <tbody>
                         {% for ini in range(ini, fim): %}
                             <tr>
-                                <th scope="row">{{ lista[ini][0] }}</th>
+                                <th scope="row">{{ ini+1 }}</th>
                                 <td>{{ lista[ini][1] }}</td>
                                 <td>{{ lista[ini][2] }}</td>
                                 <td>{{ lista[ini][3] }}</td>
-                                <td>
-                                    <span class="fas fa-times-circle"></span>
-                                </td>
+                                <td><form method="post" action="/"><input type="text" id="deletar" name="{{ lista[ini][0] }}"></form></td>
                             </tr>
                         {% endfor %}
                         </tbody>
                     </table>
-
                 </div>
             </div>
 
