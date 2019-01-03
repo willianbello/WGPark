@@ -1,22 +1,25 @@
 import mysql.connector
 
-
+#testa se a conexão está funcionando e fornece o caminho para o BD
 def connect():
 
-    # testa se a conexão está funcionando
     try:
         conexao = mysql.connector.connect(host='localhost',
                                           user='root',
                                           password='admin',
+<<<<<<< HEAD
                                           database='sys')
         print("Conexao está ok", conexao)
+=======
+                                          database='dbwgpark')
+>>>>>>> origin/master
         return conexao
     # se não estiver, retorna um erro
     except Exception as erro:
         print("Não foi possivel conectar", erro)
         return erro
 
-
+#função que insere os dados no bd
 def insert_ent(placa, dia, horario):
 
     curl = connect()
@@ -28,6 +31,7 @@ def insert_ent(placa, dia, horario):
     print(query)
 
 
+<<<<<<< HEAD
 '''#indica o caminho até o banco de dados
 curl = connect()
 ordem = curl.cursor()
@@ -44,3 +48,14 @@ comSql = "SELECT * FROM carro"
 ordem.execute(comSql)
 resultado = ordem.fetchall()
 print(resultado)'''
+=======
+#função que fornece a leitura dos dados do BD e retorna uma lista
+def read_ent():
+
+    curl = connect()
+    ordem = curl.cursor()
+    query = "SELECT * FROM tbentrada"
+    ordem.execute(query)
+    lista = ordem.fetchall()
+    return lista
+>>>>>>> origin/master
