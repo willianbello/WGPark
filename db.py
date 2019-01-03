@@ -7,19 +7,17 @@ def connect():
         conexao = mysql.connector.connect(host='localhost',
                                           user='root',
                                           password='admin',
-<<<<<<< HEAD
+
                                           database='sys')
         print("Conexao está ok", conexao)
-=======
-                                          database='dbwgpark')
->>>>>>> origin/master
+
         return conexao
     # se não estiver, retorna um erro
     except Exception as erro:
         print("Não foi possivel conectar", erro)
         return erro
 
-<<<<<<< HEAD
+
 #função que insere os dados no bd
 def insert_ent(placa, dia, horario):
 
@@ -32,7 +30,7 @@ def insert_ent(placa, dia, horario):
     print(query)
 
 
-<<<<<<< HEAD
+
 '''#indica o caminho até o banco de dados
 curl = connect()
 ordem = curl.cursor()
@@ -49,7 +47,7 @@ comSql = "SELECT * FROM carro"
 ordem.execute(comSql)
 resultado = ordem.fetchall()
 print(resultado)'''
-=======
+
 #função que fornece a leitura dos dados do BD e retorna uma lista
 def read_ent():
 
@@ -59,8 +57,7 @@ def read_ent():
     ordem.execute(query)
     lista = ordem.fetchall()
     return lista
->>>>>>> origin/master
-=======
+
 
 class Cadastro:
 
@@ -93,4 +90,4 @@ class Cadastro:
         query = "DELETE FROM tbentrada where pkcodentr = %d" %id
         ordem.execute(query)
         curl.commit()
->>>>>>> c093ed610819be4ba8fa812c20d7ce6f167cf2f0
+
