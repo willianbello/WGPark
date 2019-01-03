@@ -167,96 +167,17 @@
                             </tr>
                         </thead>
                         <tbody>
+                        {% for ini in range(ini, fim): %}
                             <tr>
-                                <th scope="row">1</th>
-                                <td>{{ placa }}</td>
-                                <td>28-12-2018 13:30</td>
-                                <td>Ativo</td>
+                                <th scope="row">{{ lista[ini][0] }}</th>
+                                <td>{{ lista[ini][1] }}</td>
+                                <td>{{ lista[ini][2] }}</td>
+                                <td>{{ lista[ini][3] }}</td>
                                 <td>
                                     <span class="fas fa-times-circle"></span>
                                 </td>
                             </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>XXX-XXXX</td>
-                                <td>28-12-2018 13:30</td>
-                                <td>Ativo</td>
-                                <td>
-                                    <span class="fas fa-times-circle"></span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>XXX-XXXX</td>
-                                <td>28-12-2018 13:30</td>
-                                <td>Ativo</td>
-                                <td>
-                                    <span class="fas fa-times-circle"></span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">4</th>
-                                <td>XXX-XXXX</td>
-                                <td>28-12-2018 13:30</td>
-                                <td>Ativo</td>
-                                <td>
-                                    <span class="fas fa-times-circle"></span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">5</th>
-                                <td>XXX-XXXX</td>
-                                <td>28-12-2018 13:30</td>
-                                <td>Ativo</td>
-                                <td>
-                                    <span class="fas fa-times-circle"></span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">6</th>
-                                <td>XXX-XXXX</td>
-                                <td>28-12-2018 13:30</td>
-                                <td>Ativo</td>
-                                <td>
-                                    <span class="fas fa-times-circle"></span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">7</th>
-                                <td>XXX-XXXX</td>
-                                <td>28-12-2018 13:30</td>
-                                <td>Ativo</td>
-                                <td>
-                                    <span class="fas fa-times-circle"></span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">8</th>
-                                <td>XXX-XXXX</td>
-                                <td>28-12-2018 13:30</td>
-                                <td>Ativo</td>
-                                <td>
-                                    <span class="fas fa-times-circle"></span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">9</th>
-                                <td>XXX-XXXX</td>
-                                <td>28-12-2018 13:30</td>
-                                <td>Ativo</td>
-                                <td>
-                                    <span class="fas fa-times-circle"></span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">10</th>
-                                <td>XXX-XXXX</td>
-                                <td>28-12-2018 13:30</td>
-                                <td>Ativo</td>
-                                <td>
-                                    <span class="fas fa-times-circle"></span>
-                                </td>
-                            </tr>
+                        {% endfor %}
                         </tbody>
                     </table>
 
@@ -282,69 +203,6 @@
                 <tbody>
                     <tr>
                         <th scope="row">1</th>
-                        <td>XXX-XXXX</td>
-                        <td>28-12-2018 13:30</td>
-                        <td>28-12-2018 13:30</td>
-                        <td>Finalizado</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>XXX-XXXX</td>
-                        <td>28-12-2018 13:30</td>
-                        <td>28-12-2018 13:30</td>
-                        <td>Finalizado</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>XXX-XXXX</td>
-                        <td>28-12-2018 13:30</td>
-                        <td>28-12-2018 13:30</td>
-                        <td>Finalizado</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">4</th>
-                        <td>XXX-XXXX</td>
-                        <td>28-12-2018 13:30</td>
-                        <td>28-12-2018 13:30</td>
-                        <td>Finalizado</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">5</th>
-                        <td>XXX-XXXX</td>
-                        <td>28-12-2018 13:30</td>
-                        <td>28-12-2018 13:30</td>
-                        <td>Finalizado</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">6</th>
-                        <td>XXX-XXXX</td>
-                        <td>28-12-2018 13:30</td>
-                        <td>28-12-2018 13:30</td>
-                        <td>Finalizado</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">7</th>
-                        <td>XXX-XXXX</td>
-                        <td>28-12-2018 13:30</td>
-                        <td>28-12-2018 13:30</td>
-                        <td>Finalizado</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">8</th>
-                        <td>XXX-XXXX</td>
-                        <td>28-12-2018 13:30</td>
-                        <td>28-12-2018 13:30</td>
-                        <td>Finalizado</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">9</th>
-                        <td>XXX-XXXX</td>
-                        <td>28-12-2018 13:30</td>
-                        <td>28-12-2018 13:30</td>
-                        <td>Finalizado</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">10</th>
                         <td>XXX-XXXX</td>
                         <td>28-12-2018 13:30</td>
                         <td>28-12-2018 13:30</td>

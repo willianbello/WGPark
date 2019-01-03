@@ -12,5 +12,5 @@ create table tbsaida(
   datasd varchar(10),
   horasd varchar(8),
   primary key (pkcodsd),
-  fkcodentr integer not null auto_increment,
+  fkcodentr integer,
   constraint tbsaidafkcodentr foreign key(fkcodentr) references tbentrada(pkcodentr));
