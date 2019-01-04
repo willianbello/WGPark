@@ -16,7 +16,12 @@
     <link rel="icon" type="image/png" href="{{url_for('static', filename='imagens/icone.png')}}">
     <script defer src="https://use.fontawesome.com/releases/v5.6.3/js/all.js" integrity="sha384-EIHISlAOj4zgYieurP0SdoiBYfGJKkgWedPHH4jCzpCXLmzVsw1ouK59MuUtP4a1" crossorigin="anonymous"></script>
     <script>
+
+        var valor = 0;
+        var horaEntrada = 0;
+
         $(document).ready(function() {
+
 
             iniciar();
 
@@ -46,9 +51,16 @@
                 var str_data = dia + '/' + (mes + 1) + '/' + ano4;
                 var str_hora = hora + ':' + min + ':' + seg;
 
+                var valorASerPago = (hora - horaEntrada) * valor;
+
+                if (valorASerPago < 1) valorASerPago = 2;
+
                 document.getElementById('dia').value = str_data;
                 document.getElementById('hora').value = str_hora;
+                document.getElementById('diaAtual').value = str_data;
+                document.getElementById('horaAtual').value = str_hora;
                 document.getElementById('horario').value = str_hora;
+                document.getElementById('valorRS').value = "R$ " + valorASerPago;
             }
 
             var link = $('#linkHistorico');
@@ -83,14 +95,14 @@
                 }, 700);
             });
 
-            $('#adicionar').on('show.bs.modal', function (event) {
+            $('#adicionar, #encerrar').on('show.bs.modal', function (event) {
 
                 $(".containerSuperior, .menuNavegacao, .container, .container-fluid, #botaoSubir").css('filter','blur(5px) grayscale(20%)');
                 $(".containerSuperior, .menuNavegacao, .container, .container-fluid, #botaoSubir").css('-webkit-filter','blur(5px) grayscale(20%)');
 
             });
 
-            $('#adicionar').on('hide.bs.modal', function (event) {
+            $('#adicionar, #encerrar').on('hide.bs.modal', function (event) {
                 $(".containerSuperior, .menuNavegacao, .container, .container-fluid, #botaoSubir").css('filter','blur(0px) grayscale(0%)');
                 $(".containerSuperior, .menuNavegacao, .container, .container-fluid, #botaoSubir").css('-webkit-filter','blur(0px) grayscale(0%)');
 
@@ -176,7 +188,11 @@
                                 <td>{{ lista[ini][1] }}</td>
                                 <td>{{ lista[ini][2] }}</td>
                                 <td>{{ lista[ini][3] }}</td>
-                                <td><form method="post" action="/"><input type="text" id="deletar" name="{{ lista[ini][0] }}"></form></td>
+                                <td><form method="post" action="/">
+                                    <a id="deletar" name="{{ lista[ini][0] }}" data-toggle="modal" data-target="#encerrar" href="#" style="color: black">
+                                        <span class="fas fa-times-circle"></span>
+                                    </a>
+                                </form></td>
                             </tr>
                         {% endfor %}
                         </tbody>
@@ -239,7 +255,7 @@
             </div>
         </footer>
 
-        <!-- Modal -->
+        <!-- Modal Adicionar -->
         <div class="modal fade" id="adicionar" tabindex="-1" role="dialog" aria-labelledby="adicionar veiculo" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -270,6 +286,47 @@
                 </div>
             </div>
         </div>
+
+        <!-- Modal Encerrar -->
+        <div class="modal fade" id="encerrar" tabindex="-1" role="dialog" aria-labelledby="remover veiculo" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <form method="post" action="/">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="tituloModal">Saída de Veículo</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+
+                            <label for="#placa">Valor a ser pago</label>
+                            <input type="text"  id="valorRS" name="valor" class="form-control" readonly>
+                            <br>
+
+                            <!-- Pegar a data de entrada no banco -->
+                            <span>Data Entrada:</span>
+                            <input type="text" readonly id="dia" name="diaEntrada">
+                            <br><br>
+                            <span>Hora Entrada:</span>
+                            <input type="text" readonly id="hora" name="horaEntrada">
+                            <br><br><br>
+                            <span>Data Atual:</span>
+                            <input type="text" readonly id="diaAtual" name="diaAtual">
+                            <br><br>
+                            <span>Hora Atual:</span>
+                            <input type="text" readonly id="horaAtual" name="horaAtual">
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-success">Remover Veículo</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
     </div>
 
 </body>
