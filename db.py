@@ -5,10 +5,10 @@ def connect():
 
     try:
         conexao = mysql.connector.connect(host='localhost',
-                                          user='root',
+                                          user='black',
                                           password='admin',
 
-                                          database='sys')
+                                          database='dbwgpark')
         print("Conexao está ok", conexao)
 
         return conexao
