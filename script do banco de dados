@@ -2,10 +2,10 @@ CREATE SCHEMA `dbwgpark` ;
 
 create table tbentrada(
   pkcodentr integer not null auto_increment,
-  placacarentr varchar(10)
+  placacarentr varchar(10),
   dataentr varchar(10),
   horaentr varchar(10),
-  primary key(pkcodentr),
+  primary key(pkcodentr));
 
 create table tbsaida(
   pkcodsd integer not null auto_increment,
