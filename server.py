@@ -1,33 +1,42 @@
-﻿from flask import *
+﻿# coding=UTF-8
+from flask import *
 from db import *
+from forms import *
 
 
 #instancia o app
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'teste'
 
-#endereço da página
+#App que para ir ao endereço da página
 @app.route('/', methods=['GET', 'POST'])
 
 #função que retorna o html salvo na pasta templates
 def index():
-    #se obtiver "POST" realiza o cadastro das informações no BD e devolve o template de resultado
+
+    #requisita o formulario do arquivo forms.py
+    formulario = FormularioDeCadastro(request.form)
+    #se obtiver "POST" e validate_on_submit realiza o cadastro das informações no BD e devolve o template de resultado
     #se não, devolve o template index
-    if request.method == 'POST':
+    if request.method == 'POST' and formulario.validate_on_submit():
 
-        entrada = Cadastro(request.form['placa'], request.form['dia'], request.form['horario'])
-        entrada.insert_ent(entrada.placa, entrada.dia, entrada.horario)
-        return render_template('result.html', entrada=entrada)
+        Cadastro.insert_ent(None, request.form['placa'], request.form['data'], request.form['hora'])
+        return redirect(url_for('index'))
 
-    if request.method == 'post':
-
-        Cadastro.delete_ent(None, request.form['{{ lista[ini][0] }}'])
-        return render_template('delete.html')
 
     #função que recebe os dados cadastrados no BD e mostra no template index
     lista = Cadastro.read_ent(None)
     ini = 0
     fim = len(lista)
-    return render_template('index.html', lista=lista, ini=ini, fim=fim)
+
+    return render_template('index.html', lista=lista, ini=ini, fim=fim, formulario=formulario)
+
+#App que deleta os cadastros no BD
+@app.route('/delete/<int:pkcodentr>')
+def delete(pkcodentr):
+
+    Cadastro.delete_ent(None, pkcodentr)
+    return redirect(url_for('index'))
 
 
 #inicia o servidor

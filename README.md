@@ -9,7 +9,7 @@
     </ul>
     <ul>
         <li><h2>Objetivos:</h2></li>
-        <li>Pesquisar e colocar em prática os conhecimentos adquiridos ao longo do tempo em HTML, CSS, Javascript, Bootstrap, Python, Flask, Request.</li>
+        <li>Pesquisar e colocar em prática os conhecimentos adquiridos ao longo do tempo em HTML, CSS, Javascript, Bootstrap, Python, MySQL e Flask.</li>
     </ul>
     <ul>
         <li><h2>Requisitos:</h2></li>
@@ -20,30 +20,39 @@
     </ul>
     <ul>
         <li><h2>Instruções para instalação:</h2></li>
-        <li>Para rodar, é necessário instalar o Python3.x e os pacotes Requests e Flask. É recomendado fazer em uma máquina virtual a modo de evitar conflitos com arquivos do seu SO</li>
+        <li>Para rodar, é necessário instalar o Python3.x, Flask e frameworks necessários. É recomendado fazer em uma máquina virtual a modo de evitar conflitos com arquivos do seu SO</li>
         <ul>
-            <li><h3>Instalando Requests e Flask no Windows:</h3></li>
+            <li><h3>Instalando Flask e demais frameworks utilizados no Windows:</h3></li>
             <li>Verifique se o Python está instalado no sistema. Caso não esteja:
             <br>https://www.python.org/downloads/</li>
         </ul>
         <ul>
             <li><h3>Com o Python instalado:</h3></li>
-            <li>pip install requests</li>
             <li>pip install Flask</li>
+            <li>pip install flask_wtf</li>
+            <li>pip install wtforms</li>
+            <li>pip install mysqlconnector</li>
         </ul>
          <ul>
-            <li><h3>Instalando Requests e Flask no Linux:</h3></li>
+            <li><h3>Instalando Flask no Linux:</h3></li>
             <li>Verifique se existe o Python instalado no sistema(geralmente vem instalado), mas caso não esteja:
              <br><br>apt-get install python (debian e derivados)</li>
         </ul>
         <ul>
             <li><h3>Verifique se o "pip" está instalado. Caso não esteja:</h3></li>
-            <li>pip install requests</li>
+            <li>apt install python3-pip</li>
             <li>pip install Flask</li>
         </ul>
          <ul>
+            <li><h3>Com o Python instalado:</h3></li>
+            <li>pip install Flask</li>
+            <li>pip install flask_wtf</li>
+            <li>pip install wtforms</li>
+            <li>pip install mysqlconnector</li>
+            </ul>
+            <ul>
             <li><h3>Executando o programa:</h3></li>
-            <li>Execute o app.py com "python app.py" e como um passe de mágica, ele irá gerar um sevidor web de endereço: http://127.0.0.1:5000/
+            <li>Execute o server.py com "python3 server.py" e como um passe de mágica, ele irá gerar um sevidor web de endereço: http://127.0.0.1:5000/
         </ul>
     </ul>
 </ul>
