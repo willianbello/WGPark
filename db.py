@@ -7,7 +7,7 @@ def connect():
     try:
         conexao = mysql.connector.connect(host='localhost',
                                           user='root',
-                                          password='giovani',
+                                          password='admin',
                                           database='dbwgpark')
         print("Conexao está ok", conexao)
 
