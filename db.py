@@ -1,13 +1,13 @@
 import mysql.connector
 
 
-#testa se a conexão está funcionando e fornece o caminho para o BD
+# testa se a conexão está funcionando e fornece o caminho para o BD
 def connect():
 
     try:
         conexao = mysql.connector.connect(host='localhost',
                                           user='root',
-                                          password='admin',
+                                          password='giovani',
                                           database='dbwgpark')
         print("Conexao está ok", conexao)
 
@@ -49,4 +49,3 @@ class Cadastro:
         query = "DELETE FROM tbentrada where pkcodentr = %d" % id
         ordem.execute(query)
         curl.commit()
-
