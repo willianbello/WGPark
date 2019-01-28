@@ -9,4 +9,4 @@ class FormularioDeCadastro(FlaskForm):
     placa = StringField('Placa', validators=[DataRequired()], render_kw={"placeholder": "ABC-1234"})
     data = StringField('Data', id="datacadastro", render_kw={"readonly": "datacadastro"})
     hora = StringField('Hora', id="horacadastro", render_kw={"readonly": "horacadastro"})
-    add = SubmitField('Adicionar')
+    add = SubmitField('Adicionar', render_kw={"class":"btn btn-success"})
