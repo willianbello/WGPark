@@ -16,7 +16,15 @@
     <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.2r1/build/reset/reset-min.css">
     <link rel="icon" type="image/png" href="{{url_for('static', filename='imagens/icone.png')}}">
     <script defer src="https://use.fontawesome.com/releases/v5.6.3/js/all.js" integrity="sha384-EIHISlAOj4zgYieurP0SdoiBYfGJKkgWedPHH4jCzpCXLmzVsw1ouK59MuUtP4a1"
-        crossorigin="anonymous"></script>
+        crossorigin="anonymous">
+        </script>
+    <!-- Cabrito feito por Giovani Lima, pois não sei fazer modal dinâmico com dados do BD -->
+    <script>
+        function refPag() {
+            location.reload();
+        }
+    </script>
+
     <script>
 
         var valor = 0;
@@ -24,8 +32,8 @@
 
         $(document).ready(function () {
 
-
             iniciar();
+
 
             function iniciar() {
                 setInterval(mostrarData, 1000);
@@ -194,7 +202,7 @@
                                 <td>
                                     <a id="deletar" name="{{ lista[ini][0] }}" data-toggle="modal" data-target="#encerrar{{ lista[ini][0] }}"
                                         style="color: black">
-                                        <span class="fas fa-times-circle" onclick=""></span>
+                                        <span class="fas fa-times-circle" onclick="iniciar()"></span>
                                     </a>
                                 </td>
                             </tr>
@@ -303,7 +311,7 @@
                     <input type="text" name="Valor a ser pago" class="form-control" readonly id="valorRS">
                     <br>
 
-                    <!-- Pegar a data de entrada no banco -->
+                    <!-- Pegar a data de entrada da lista-->
                     <span>Data Entrada:</span>
                     <input type="text" readonly value="{{ lista[ini][2] }}">
                     <br><br>
@@ -311,14 +319,14 @@
                     <input type="text" readonly value="{{ lista[ini][3] }}">
                     <br><br><br>
                     <span>Data Atual:</span>
-                    <input type="text" readonly id="diaAtual" name="diaAtual">
+                    <input type="text" value="{{ datatxt }}">
                     <br><br>
                     <span>Hora Atual:</span>
-                    <input type="text" readonly id="horaAtual" name="horaAtual">
+                    <input type="text" value="{{ horatxt }}">
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="refPag()">Cancelar</button>
                     <form method="post" action="/">
                         {% if lista %}
                         <a href="/delete/{{ lista[ini][0] }}" button type="submit" class="btn btn-success">Remover

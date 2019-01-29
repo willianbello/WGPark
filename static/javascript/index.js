@@ -58,3 +58,4 @@ function mostrarData() {
     document.getElementById('hora').value = str_hora;
     document.getElementById('horario').value = str_hora;
 }
+

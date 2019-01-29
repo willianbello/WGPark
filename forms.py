@@ -5,7 +5,6 @@ from wtforms.validators import DataRequired
 
 # Cria os campos no HTML para inserir/mostrar dados
 
-
 class FormularioDeCadastro(FlaskForm):
 
     placa = StringField('Placa', validators=[DataRequired()], render_kw={
@@ -15,4 +14,4 @@ class FormularioDeCadastro(FlaskForm):
     hora = StringField('Hora', id="horacadastro", render_kw={
                        "readonly": "horacadastro"})
     add = SubmitField('Adicionar', render_kw={"class": "btn btn-success"})
-    
+

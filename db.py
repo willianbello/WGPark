@@ -9,7 +9,6 @@ def connect():
                                           user='root',
                                           password='giovani',
                                           database='dbwgpark')
-        print("Conexao está ok", conexao)
 
         return conexao
     # se não estiver, retorna um erro
@@ -19,7 +18,8 @@ def connect():
 
 
 class Cadastro:
-
+    
+    # Instancia a classe
     def __init__(self, placa, dia, horario):
         self.placa = placa
         self.dia = dia
@@ -33,6 +33,13 @@ class Cadastro:
         cadastro = (placa, dia, horario)
         ordem.execute(query, cadastro)
         curl.commit()
+
+    #função para inserir os dados no histórico
+    def insert_sai(self):
+
+        curl = connect()
+        ordem = curl.cursor()
+        query = "INSERT INTO tbsaida(
 
     # função que fornece a leitura dos dados do BD e retorna uma lista
     def read_ent(self):
