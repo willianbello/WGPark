@@ -39,7 +39,7 @@ class Cadastro:
 
         curl = connect()
         ordem = curl.cursor()
-        query = "INSERT INTO tbsaida(
+        #query = "INSERT INTO tbsaida(
 
     # função que fornece a leitura dos dados do BD e retorna uma lista
     def read_ent(self):
