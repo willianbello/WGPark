@@ -8,22 +8,32 @@
     <title>WGPark - Estacionamentos</title>
     <!-- Bootstrap CSS -->
     <script src="{{url_for('static', filename='jQuery/jquery-3.3.1.min.js')}}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
     <script src="{{url_for('static', filename='bootstrap/js/bootstrap.min.js')}}"></script>
     <link rel="stylesheet" href="{{url_for('static', filename='estilos/main.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='bootstrap/css/bootstrap.min.css')}}">
     <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.2r1/build/reset/reset-min.css">
     <link rel="icon" type="image/png" href="{{url_for('static', filename='imagens/icone.png')}}">
-    <script defer src="https://use.fontawesome.com/releases/v5.6.3/js/all.js" integrity="sha384-EIHISlAOj4zgYieurP0SdoiBYfGJKkgWedPHH4jCzpCXLmzVsw1ouK59MuUtP4a1" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.6.3/js/all.js" integrity="sha384-EIHISlAOj4zgYieurP0SdoiBYfGJKkgWedPHH4jCzpCXLmzVsw1ouK59MuUtP4a1"
+        crossorigin="anonymous">
+        </script>
+    <!-- Cabrito feito por Giovani Lima, pois não sei fazer modal dinâmico com dados do BD -->
+    <script>
+        function refPag() {
+            location.reload();
+        }
+    </script>
+
     <script>
 
         var valor = 0;
         var horaEntrada = 0;
 
-        $(document).ready(function() {
-
+        $(document).ready(function () {
 
             iniciar();
+
 
             function iniciar() {
                 setInterval(mostrarData, 1000);
@@ -55,18 +65,16 @@
 
                 if (valorASerPago < 1) valorASerPago = 2;
 
+                document.getElementById('horaindex').value = str_hora;
                 document.getElementById('datacadastro').value = str_data;
                 document.getElementById('horacadastro').value = str_hora;
                 document.getElementById('diaAtual').value = str_data;
                 document.getElementById('horaAtual').value = str_hora;
-                document.getElementById('horario').value = str_hora;
                 document.getElementById('valorRS').value = "R$ " + valorASerPago;
             }
 
             var link = $('#linkHistorico');
             var subir = $('#botaoSubir');
-
-
 
             $(window).scroll(function () {
                 var minhaPosicao = $(this).scrollTop();
@@ -78,7 +86,7 @@
             });
 
 
-            $(link).click(function() {
+            $(link).click(function () {
 
                 var seletor = $(this).attr("href");
                 console.log(seletor);
@@ -89,7 +97,7 @@
 
             });
 
-            $(subir).click(function() {
+            $(subir).click(function () {
                 $("html, body").animate({
                     scrollTop: 0
                 }, 700);
@@ -97,23 +105,22 @@
 
             $('#adicionar, #encerrar').on('show.bs.modal', function (event) {
 
-                $(".containerSuperior, .menuNavegacao, .container, .container-fluid, #botaoSubir").css('filter','blur(5px) grayscale(20%)');
-                $(".containerSuperior, .menuNavegacao, .container, .container-fluid, #botaoSubir").css('-webkit-filter','blur(5px) grayscale(20%)');
+                $(".containerSuperior, .menuNavegacao, .container, .container-fluid, #botaoSubir").css('filter', 'blur(5px) grayscale(20%)');
+                $(".containerSuperior, .menuNavegacao, .container, .container-fluid, #botaoSubir").css('-webkit-filter', 'blur(5px) grayscale(20%)');
 
             });
-
             $('#adicionar, #encerrar').on('hide.bs.modal', function (event) {
-                $(".containerSuperior, .menuNavegacao, .container, .container-fluid, #botaoSubir").css('filter','blur(0px) grayscale(0%)');
-                $(".containerSuperior, .menuNavegacao, .container, .container-fluid, #botaoSubir").css('-webkit-filter','blur(0px) grayscale(0%)');
+                $(".containerSuperior, .menuNavegacao, .container, .container-fluid, #botaoSubir").css('filter', 'blur(0px) grayscale(0%)');
+                $(".containerSuperior, .menuNavegacao, .container, .container-fluid, #botaoSubir").css('-webkit-filter', 'blur(0px) grayscale(0%)');
 
             });
 
-            //Recarrega a página quando fecha a modal (caso não funciona com hidden, mudar pra hide.bs.modal)
-            $('#encerrar').on('hidden.bs.modal', function (event) { 
+            $('#encerrar').on('hide.bs.modal', function (event) {
                 window.location.reload();
             });
-        });
 
+
+        });
     </script>
     <style>
         /* ========= mediaQuery ========= */
@@ -123,12 +130,10 @@
                 margin-left: 0;
             }
         }
-
     </style>
 </head>
 
 <body>
-
     <header>
         <div class="menuNavegacao fixed-top" id="menuPrincipal">
             <div class="container">
@@ -136,19 +141,20 @@
                     <span class="navbar-brand">
                         <img src="{{url_for('static', filename='imagens/LogoSite.png')}}" class="logo">
                     </span>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ml-auto ml-3">
                             <li class="nav-item">
                                 <a class="nav-link" href="#historico" id="linkHistorico">Histórico</a>
                             </li>
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Admin
-                            </a>
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Admin
+                                </a>
                                 <div class="dropdown-menu menuDrop" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="#">Configurações</a>
                                     <a class="dropdown-item" href="#">Logout</a>
@@ -164,21 +170,18 @@
             <button class=" btn btn-dark fixed-bottom" id="botaoSubir" style="left: 80px;bottom: 80px">Subir</button>
         </div>
     </header>
-
     <div class="containerSuperior">
-
         <div class="container">
             <div class="row mt-5">
                 <div class="col-md-6">
                     <h2 class="titulos">No Pátio</h2>
-                    <span style="">Hora Atual: </span><input id="hora" readonly style="border: none; padding: auto; font-family: 'Playfair Display', serif; font-size: 25px">
+                    <span>Hora Atual: </span><input id="horaindex" readonly style="border: none; padding: auto; font-family: 'Playfair Display', serif; font-size: 25px">
                 </div>
                 <div class="col-md-6">
-
-                    <button type="button" class="btn btn-outline-success titulos" id="botaoAdicionar" data-toggle="modal" data-target="#adicionar">
+                    <button type="button" class="btn btn-outline-success titulos" id="botaoAdicionar" data-toggle="modal"
+                        data-target="#adicionar">
                         <span class="fas fa-plus"></span> Adicionar Veículo
                     </button>
-
 
                 </div>
             </div>
@@ -195,30 +198,29 @@
                             </tr>
                         </thead>
                         <tbody>
-                        {% for ini in range(ini, fim): %}
+                            {% for ini in range(ini, fim): %}
                             <tr>
                                 <th scope="row">{{ ini+1 }}</th>
                                 <td>{{ lista[ini][1] }}</td>
                                 <td>{{ lista[ini][2] }} - {{ lista[ini][3] }}</td>
                                 <td> </td>
                                 <td>
-                                    <a id="deletar" name="{{ lista[ini][0] }}" data-toggle="modal" data-target="#encerrar" style="color: black">
+                                    <a id="deletar" data-toggle="modal" data-target="#encerrar{{ lista[ini][0] }}"
+                                        style="color: black">
                                         <span class="fas fa-times-circle"></span>
                                     </a>
                                 </td>
                             </tr>
-                        {% endfor %}
+                            {% endfor %}
                         </tbody>
                     </table>
                 </div>
             </div>
-
             <div class="row">
                 <div class="col-md-12">
                     <h2 class="titulos" id="historico">Histórico</h2>
                 </div>
             </div>
-
             <table class="table table-striped table-bordered table-hover table-danger">
                 <thead>
                     <tr>
@@ -230,13 +232,15 @@
                     </tr>
                 </thead>
                 <tbody>
+                        {% for ini2 in range(ini2, fim2): %}
                     <tr>
-                        <th scope="row">1</th>
-                        <td>XXX-XXXX</td>
-                        <td>28-12-2018 13:30</td>
-                        <td>28-12-2018 13:30</td>
+                        <th scope="row">{{ ini2 + 1 }}</th>
+                        <td>{{ lista2[ini2][1] }}</td>
+                        <td>{{ lista2[ini2][2] }} - {{ lista2[ini2][3] }}</td>
+                        <td>{{ lista2[ini2][4] }} - {{ lista2[ini2][5] }}</td>
                         <td>Finalizado</td>
                     </tr>
+                        {% endfor %}
                 </tbody>
             </table>
         </div>
@@ -249,102 +253,97 @@
                                 <img src="{{url_for('static', filename='imagens/LogoSite.png')}}" class="logo mt-2">
                             </span>
                         </div>
-
                         <div class="col-md-5">
                             <span>
                                 Desenvolvido e criado por: Willian Bello e Giovani Lima
                             </span>
                         </div>
-
                         <div class="col-md-5">
                             <span>Controle de Entrada e Saída de Veículos</span>
                         </div>
                     </div>
                 </div>
-
             </div>
-            </div>
-        </footer>
+    </div>
+    </footer>
 
-        <!-- Modal Adicionar -->
-        <div class="modal fade" id="adicionar" tabindex="-1" role="dialog" aria-labelledby="adicionar veiculo" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <form method="post" action="/">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="tituloModal">Adicionar Entrada</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            {{ formulario.csrf_token }}
-                            <span>Placa do Veículo:</span>
-                                {{ formulario.placa }}
-                            <br><br>
-                            <span>Data:</span>
-                                {{ formulario.data }}
-                            <br><br>
-                            <span>Hora:</span>
-                                {{ formulario.hora }}
-                            <br><br>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                            {{ formulario.add }}
-                        </div>
-                    </form>
-                </div>
+    <!-- Modal Adicionar -->
+    <div class="modal fade" id="adicionar" tabindex="-1" role="dialog" aria-labelledby="adicionar veiculo" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form method="post" action="/">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="tituloModal">Adicionar Entrada</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        {{ formulario.csrf_token }}
+                        <span>Placa do Veículo:</span>
+                        {{ formulario.placa }}
+                        <br><br>
+                        <span>Data:</span>
+                        {{ formulario.data }}
+                        <br><br>
+                        <span>Hora:</span>
+                        {{ formulario.hora }}
+                        <br><br>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                        {{ formulario.add }}
+                    </div>
+                </form>
             </div>
         </div>
-
-        <!-- Modal Encerrar -->
-        <div class="modal fade" id="encerrar" tabindex="-1" role="dialog" aria-labelledby="remover veiculo" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="tituloModal">Saída de Veículo</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-
-                            <label for="#placa">Valor a ser pago</label>
-                            <input type="text"  id="valorRS" name="valor" class="form-control" readonly>
-                            <br>
-
-                            <!-- Pegar a data de entrada no banco -->
-                            <span hidden>Data Entrada:</span>
-                            <input type="text" readonly id="dia" name="diaEntrada" hidden>
-                            <br><br>
-                            <span hidden>Hora Entrada:</span>
-                            <input type="text" readonly id="hora" name="horaEntrada" hidden>
-                            <br><br><br>
-                            <span hidden>Data Atual:</span>
-                            <input type="text" readonly id="diaAtual" name="diaAtual" hidden>
-                            <br><br>
-                            <span hidden>Hora Atual:</span>
-                            <input type="text" readonly id="horaAtual" name="horaAtual" hidden>
-
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                            <form method="post" action="/">
-                                {% if lista %}
-                                    <a href="/delete/{{ lista[ini][0] }}" button type="submit" class="btn btn-success">Remover Veículo</button></a>
-                                {% else %}
-                                    <button type="submit" class="btn btn-success">Remover Veículo</button>
-                                {% endif %}
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
     </div>
 
+    {% for ini in range(ini, fim): %}
+    <!-- Modal Encerrar -->
+    <div class="modal fade" id="encerrar{{ lista[ini][0] }}" name="{{ lista[ini][0] }}" tabindex="-1" role="dialog" aria-labelledby="remover veiculo"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form method="post" action="/delete">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="tituloModal">Saída de Veículo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <label for="#placa">Valor a ser pago</label>
+                    <input type="text" name="Valor a ser pago" class="form-control" readonly id="valorRS">
+                    <br>
+                        <!-- Pegar a data de entrada da lista-->
+                        {{ formulario2.csrf_token }}
+                        {{ formulario2.pkcodentr(hidden=hidden, readonly="readonly", value=lista[ini][0]) }}
+                        <span>Placa:</span>
+                        {{ formulario2.placacarsd(readonly="readonly", value=lista[ini][1]) }}
+                        <br><br>
+                        <span>Data Entrada:</span>
+                        {{ formulario2.dataentrsd(readonly="readonly", value=lista[ini][2]) }}
+                        <br><br>
+                        <span>Hora Entrada:</span>
+                        {{ formulario2.horaentrsd(readonly="readonly", value=lista[ini][3]) }}
+                        <br><br><br>
+                        <span>Data Atual:</span>
+                        {{ formulario2.datasd }}
+                        <br><br>
+                        <span>Hora Atual:</span>
+                        {{ formulario2.horasd }}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="refPag()">Cancelar</button>
+                    {{ formulario2.remover }}
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
 </body>
 
 </html>

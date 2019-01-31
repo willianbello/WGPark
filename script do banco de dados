@@ -9,8 +9,9 @@ create table tbentrada(
 
 create table tbsaida(
   pkcodsd integer not null auto_increment,
+  placacarsd varchar(10),
+  dataentrsd varchar(10),
+  horaentrsd varchar(10),
   datasd varchar(10),
-  horasd varchar(8),
-  primary key (pkcodsd),
-  fkcodentr integer,
-  constraint tbsaidafkcodentr foreign key(fkcodentr) references tbentrada(pkcodentr));
+  horasd varchar(10),
+  primary key (pkcodsd));
