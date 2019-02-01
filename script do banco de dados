@@ -15,3 +15,10 @@ create table tbsaida(
   datasd varchar(10),
   horasd varchar(10),
   primary key (pkcodsd));
+
+create table tbusuario(
+
+  pkcodusuario integer not null auto_increment,
+  nomeusuario varchar(20),
+  senhausuario varchar(20),
+  primary key (pkcodusuario));

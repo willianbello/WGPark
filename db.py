@@ -66,3 +66,25 @@ def delete_ent(placa):
     ordem.execute(query)
     curl.commit()
     print("ok deletado do banco")
+
+# função para criar usuario e senha no BD
+def cadastro_usuario():
+    curl = connect()
+    ordem = curl.cursor()
+    nomeusuario = input("Insira o nome do novo usuario:")
+    senhausuario = input("Insira a nova senha:")
+    query = "INSERT INTO tbusuario (nomeusuario, senhausuario) VALUES (%s, %s)"
+    cadastro = (nomeusuario, senhausuario)
+    ordem.execute(query, cadastro)
+    curl.commit()
+    print("ok inserido na tbusuario")
+
+# função para verificar se existe determinado usuario cadastrado no bd
+def check_usuario(usuario, senha):
+
+    curl = connect()
+    ordem = curl.cursor()
+    query = "SELECT %s, %s FROM tbusuario" %usuario %senha
+    ordem.execute(query)
+    listasenha = ordem.fetchall()
+    return listasenha

@@ -8,11 +8,20 @@ from forms import *
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'teste'
 
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
 
-    return render_template('login.html')
+    validador = check_usuario(request.form['usuario'], request.form['senha'])
+    
+    if validador != []:
+        return redirect(url_for('index'))
+    else:
+        flash("Login ou senha incorreto")
+        return redirect(url_for('/'))
 
+    return render_template('index')
+    
 # App que para ir ao endereço da página
 @app.route('/', methods=['GET', 'POST'])
 # função que retorna o html salvo na pasta templates
