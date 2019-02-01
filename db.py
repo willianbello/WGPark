@@ -10,8 +10,8 @@ def connect():
                                           password='giovani',
                                           database='dbwgpark')
         print("ok conectado")
-
         return conexao
+        
     # se não estiver, retorna um erro
     except Exception as erro:
         print("Não foi possivel conectar", erro)

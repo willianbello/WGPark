@@ -10,34 +10,21 @@ datatxt = data.strftime("%d/%m/%Y")
 horatxt = data.strftime("%H:%M:%S")
 
 
-# Cria os campos no HTML para inserir/mostrar dados
+# Cria os campos no HTML para inserir dados de entrada
 class FormularioDeCadastro(FlaskForm):
 
-    placa = StringField('Placa', validators=[DataRequired()], render_kw={
-                        "placeholder": "ABC-1234"})
-    data = StringField('Data', id="datacadastro", render_kw={
-                       "readonly": "datacadastro"})
-    hora = StringField('Hora', id="horacadastro", render_kw={
-                       "readonly": "horacadastro"})
+    placa = StringField('Placa', validators=[DataRequired()], render_kw={"placeholder": "ABC-1234"})
+    data = StringField('Data', id="datacadastro", render_kw={"readonly": "datacadastro"})
+    hora = StringField('Hora', id="horacadastro", render_kw={"readonly": "horacadastro"})
     add = SubmitField('Adicionar', render_kw={"class": "btn btn-success"})
 
-
+# Cria os campos no HTML para inserir dados de saída
 class FormulariodeExclusao(FlaskForm):
 
     pkcodentr = StringField('Cod placa')
-
-    placacarsd = StringField(
-        'Placa')
-
+    placacarsd = StringField('Placa')
     dataentrsd = StringField('Data entrada')
-
     horaentrsd = StringField('Hora entrada')
-
-    datasd = StringField('Data saída', render_kw={
-        "readonly"" ""value": datatxt})
-
-    horasd = StringField('Hora saída', render_kw={
-        "readonly"" ""value": horatxt})
-
-    remover = SubmitField('Remover veículo', render_kw={
-        "class": "btn btn-success"})
+    datasd = StringField('Data saída', render_kw={"readonly"" ""value": datatxt})
+    horasd = StringField('Hora saída', render_kw={"readonly"" ""value": horatxt})
+    remover = SubmitField('Remover veículo', render_kw={"class": "btn btn-success"})

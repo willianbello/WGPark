@@ -18,13 +18,6 @@
     <script defer src="https://use.fontawesome.com/releases/v5.6.3/js/all.js" integrity="sha384-EIHISlAOj4zgYieurP0SdoiBYfGJKkgWedPHH4jCzpCXLmzVsw1ouK59MuUtP4a1"
         crossorigin="anonymous">
         </script>
-    <!-- Cabrito feito por Giovani Lima, pois não sei fazer modal dinâmico com dados do BD -->
-    <script>
-        function refPag() {
-            location.reload();
-        }
-    </script>
-
     <script>
 
         var valor = 0;
@@ -109,19 +102,25 @@
                 $(".containerSuperior, .menuNavegacao, .container, .container-fluid, #botaoSubir").css('-webkit-filter', 'blur(5px) grayscale(20%)');
 
             });
+
             $('#adicionar, #encerrar').on('hide.bs.modal', function (event) {
                 $(".containerSuperior, .menuNavegacao, .container, .container-fluid, #botaoSubir").css('filter', 'blur(0px) grayscale(0%)');
                 $(".containerSuperior, .menuNavegacao, .container, .container-fluid, #botaoSubir").css('-webkit-filter', 'blur(0px) grayscale(0%)');
 
             });
 
-            $('#encerrar').on('hide.bs.modal', function (event) {
+            {% if lista %}
+            $('#encerrar{{ lista[ini][0] }}').on('hide.bs.modal', function (event) {
                 window.location.reload();
             });
-
-
+            {% endif %}
         });
     </script>
+    <script>
+        function refPAge() {
+          location.reload();
+        }
+        </script>
     <style>
         /* ========= mediaQuery ========= */
         @media all and (max-width: 768px){
@@ -182,7 +181,6 @@
                         data-target="#adicionar">
                         <span class="fas fa-plus"></span> Adicionar Veículo
                     </button>
-
                 </div>
             </div>
             <div class="row">
@@ -232,7 +230,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                        {% for ini2 in range(ini2, fim2): %}
+                    {% for ini2 in range(ini2, fim2): %}
                     <tr>
                         <th scope="row">{{ ini2 + 1 }}</th>
                         <td>{{ lista2[ini2][1] }}</td>
@@ -240,7 +238,7 @@
                         <td>{{ lista2[ini2][4] }} - {{ lista2[ini2][5] }}</td>
                         <td>Finalizado</td>
                     </tr>
-                        {% endfor %}
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
@@ -264,7 +262,7 @@
                     </div>
                 </div>
             </div>
-    </div>
+        </div>
     </footer>
 
     <!-- Modal Adicionar -->
@@ -301,23 +299,22 @@
 
     {% for ini in range(ini, fim): %}
     <!-- Modal Encerrar -->
-    <div class="modal fade" id="encerrar{{ lista[ini][0] }}" name="{{ lista[ini][0] }}" tabindex="-1" role="dialog" aria-labelledby="remover veiculo"
-        aria-hidden="true">
+    <div class="modal fade" id="encerrar{{ lista[ini][0] }}" name="{{ lista[ini][0] }}" tabindex="-1" role="dialog"
+        aria-labelledby="remover veiculo" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <form method="post" action="/delete">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="tituloModal">Saída de Veículo</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="tituloModal">Saída de Veículo</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
 
-                    <label for="#placa">Valor a ser pago</label>
-                    <input type="text" name="Valor a ser pago" class="form-control" readonly id="valorRS">
-                    <br>
-                        <!-- Pegar a data de entrada da lista-->
+                        <label for="#placa">Valor a ser pago</label>
+                        <input type="text" name="Valor a ser pago" class="form-control" readonly id="valorRS">
+                        <br>
                         {{ formulario2.csrf_token }}
                         {{ formulario2.pkcodentr(hidden=hidden, readonly="readonly", value=lista[ini][0]) }}
                         <span>Placa:</span>
@@ -334,12 +331,12 @@
                         <br><br>
                         <span>Hora Atual:</span>
                         {{ formulario2.horasd }}
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="refPag()">Cancelar</button>
-                    {{ formulario2.remover }}
-                </div>
-            </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="refPag()">Cancelar</button>
+                        {{ formulario2.remover }}
+                    </div>
+                </form>
             </div>
         </div>
     </div>

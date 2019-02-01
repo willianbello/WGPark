@@ -8,9 +8,12 @@ from forms import *
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'teste'
 
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+
+    return render_template('login.html')
+
 # App que para ir ao endereço da página
-
-
 @app.route('/', methods=['GET', 'POST'])
 # função que retorna o html salvo na pasta templates
 def index():
