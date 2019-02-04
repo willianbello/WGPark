@@ -1,6 +1,6 @@
 # coding=UTF-8
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
+from wtforms import StringField, SubmitField, PasswordField
 from wtforms.validators import DataRequired
 from datetime import datetime
 
@@ -18,7 +18,7 @@ class FormularioDeCadastro(FlaskForm):
     add = SubmitField('Adicionar', render_kw={"class": "btn btn-success"})
 
 # Cria os campos no HTML para inserir dados de saída
-class FormulariodeExclusao(FlaskForm):
+class FormularioDeExclusao(FlaskForm):
 
     pkcodentr = StringField('Cod placa')
     placacarsd = StringField('Placa')
@@ -27,3 +27,15 @@ class FormulariodeExclusao(FlaskForm):
     datasd = StringField('Data saída', render_kw={"readonly"" ""value": datatxt})
     horasd = StringField('Hora saída', render_kw={"readonly"" ""value": horatxt})
     remover = SubmitField('Remover veículo', render_kw={"class": "btn btn-success"})
+
+class FormularioConfiguracao(FlaskForm):
+
+    usuario = StringField('Usuario', id="usuario")
+    senha = PasswordField('Senha', id="senha")
+    enviar = SubmitField('Enviar', render_kw={"class": "btn btn-success"})
+
+class FormularioCriacao(FlaskForm):
+
+    nomeusuario = StringField('Usuario', id="nomeusuario")
+    senhausuario = StringField('Senha', id="senhausuario")
+    enviarusuario = SubmitField('Enviar')

@@ -17,8 +17,13 @@ create table tbsaida(
   primary key (pkcodsd));
 
 create table tbusuario(
-
   pkcodusuario integer not null auto_increment,
   nomeusuario varchar(20),
   senhausuario varchar(20),
   primary key (pkcodusuario));
+
+create table tbadmin(
+  pkcodadmin integer not null auto_increment,
+  nomeadmin varchar(20),
+  senhaadmin varchar(20),
+  primary key (pkcodadmin));

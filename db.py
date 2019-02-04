@@ -45,6 +45,7 @@ def read_ent():
     query = "SELECT pkcodentr, placacarentr, dataentr, horaentr FROM tbentrada"
     ordem.execute(query)
     lista = ordem.fetchall()
+    print('ok gerada a lista de entrada')
     return lista
 
 # função que fornece a leitura dos dados da tbsaida e retorna uma lista
@@ -54,6 +55,7 @@ def read_sd():
     query = "SELECT pkcodsd, placacarsd, dataentrsd, horaentrsd, datasd, horasd FROM tbsaida"
     ordem.execute(query)
     lista2 = ordem.fetchall()
+    print('ok gerada a lista de saida')
     return lista2
 
 # função que deleta dados do BD baseado na pkcodentr
@@ -63,21 +65,32 @@ def delete_ent(placa):
     query = "DELETE FROM tbentrada where pkcodentr = %s" % placa
     ordem.execute(query)
     curl.commit()
-    print("ok deletado do banco")
+    print("ok deletado do banco o cadastro de veículo")
 
 # função para criar usuario e senha no BD
-def cadastro_usuario():
+def cadastro_usuario(nomeusuario, senhausuario):
     curl = connect()
     ordem = curl.cursor()
-    nomeusuario = input("Insira o nome do novo usuario:")
-    senhausuario = input("Insira a nova senha:")
     query = "INSERT INTO tbusuario (nomeusuario, senhausuario) VALUES (%s, %s)"
     cadastro = (nomeusuario, senhausuario)
     ordem.execute(query, cadastro)
+    print(query)
     curl.commit()
-    print("ok inserido na tbusuario")
+    print("ok inserido cadastro na tbusuario")
 
-# função para verificar se existe determinado usuario cadastrado no bd
+# função para criar usuario e senha de ADM no BD
+def cadastro_admin():
+    curl = connect()
+    ordem = curl.cursor()
+    nomeadmin = input("Insira o nome do novo administrador:")
+    senhaadmin = input("Insira a nova senha de administrador:")
+    query = "INSERT INTO tbadmin (nomeadmin, senhaadmin) VALUES (%s, %s)"
+    cadastro = (nomeadmin, senhaadmin)
+    ordem.execute(query, cadastro)
+    curl.commit()
+    print("ok inserido cadastro na tbadmin")
+
+# função para listar os usuarios cadastrados na tbusuario do BD para poder acessar a aplicação
 def check_usuario(usuario, senha):
     try:
         u = usuario
@@ -86,8 +99,33 @@ def check_usuario(usuario, senha):
         ordem = curl.cursor()
         query = "SELECT nomeusuario, senhausuario FROM tbusuario WHERE nomeusuario = '%s' AND senhausuario = '%s'" % (u, s)
         ordem.execute(query)
-        listasenha = ordem.fetchall()
-        return listasenha
+        lista_us = ordem.fetchall()
+        return lista_us
     except Exception as erro:
-        print("Não foi possivel realizar a situação", erro)
+        print("Não foi possivel realizar a solicitação de leitura de usuario", erro)
         return erro
+
+# função para verificar se existe determinado admin cadastrado no bd
+def check_admin(usuarioadmin, senhaadmin):
+    try:
+        ua = usuarioadmin
+        sa = senhaadmin
+        curl = connect()
+        ordem = curl.cursor()
+        query = "SELECT nomeadmin, senhaadmin FROM tbadmin WHERE nomeadmin = '%s' AND senhaadmin = '%s'" % (ua, sa)
+        ordem.execute(query)
+        lista_uasa = ordem.fetchall()
+        return lista_uasa
+    except Exception as erro:
+        print("Não foi possivel realizar a solicitação de leitura de admin", erro)
+        return erro
+
+# função que fornece a leitura dos usuarios cadastrados pelos administradores
+def read_usuario():
+    curl = connect()
+    ordem = curl.cursor()
+    query = "SELECT pkcodusuario, nomeusuario FROM tbusuario"
+    ordem.execute(query)
+    listausuario = ordem.fetchall()
+    print('ok feita a leitura dos usuarios cadastrados pelos administradores')
+    return listausuario

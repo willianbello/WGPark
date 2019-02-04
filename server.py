@@ -6,6 +6,7 @@ from forms import *
 # essa variavel global salva o login e senha para ficar persistindo caso a pessoa já esteja logada, impedindo de acessar novamente
 # outras partes do site, como o /login
 validador = None
+validadoradmin = None
 
 # instancia o app
 app = Flask(__name__)
@@ -68,7 +69,7 @@ def index():
     if validador != [] and validador != None and validador != Exception:
         # requisita o formulario do arquivo forms.py
         formulario = FormularioDeCadastro(request.form)
-        formulario2 = FormulariodeExclusao(request.form)
+        formulario2 = FormularioDeExclusao(request.form)
 
         # se obtiver "POST" e validate_on_submit realiza o cadastro das informações no BD e devolve o template de resultado
         # se não, devolve o template index
@@ -97,7 +98,7 @@ def index():
 def delete():
 
     placa = None
-    formulario2 = FormulariodeExclusao(request.form)
+    formulario2 = FormularioDeExclusao(request.form)
 
     if request.method == 'POST' and formulario2.validate_on_submit():
 
@@ -107,6 +108,45 @@ def delete():
 
     delete_ent(placa)
     return redirect(url_for('index'))
+
+# App que mostra a page da administração e redireciona para a page de administração de usuarios
+@app.route('/config', methods=['GET', 'POST'])
+def config():
+
+    global validadoradmin
+    formulario3 = FormularioConfiguracao(request.form)
+    validadoradmin = None
+
+    if request.method == 'POST' and formulario3.validate_on_submit():
+
+        usuario = request.form['usuario']
+        senha = request.form['senha']
+        validadoradmin = check_admin(usuario, senha)
+    
+        if validadoradmin != [] and validadoradmin != None and validadoradmin != Exception:
+            return redirect(url_for('admin'))
+
+
+    return render_template('config.html',formulario3=formulario3)
+
+# page que cria usuários para o site
+@app.route('/admin', methods=['GET', 'POST'])
+def admin():
+
+    global validadoradmin
+    validadoradmin = None
+
+    formulario4 = FormularioCriacao(request.form)
+
+    if request.method == 'POST' and formulario4.validate_on_submit():
+
+        cadastro_usuario(request.form['nomeusuario'], request.form['senhausuario'])
+        return redirect(url_for('admin'))
+
+    listausuario = read_usuario()
+    ini = 0
+    fim = len(listausuario)
+    return render_template('admin.html', formulario4=formulario4, listausuario=listausuario, ini=ini, fim=fim)
 
 
 # inicia o servidor
