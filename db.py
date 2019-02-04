@@ -11,7 +11,7 @@ def connect():
                                           database='dbwgpark')
         print("ok conectado")
         return conexao
-        
+
     # se não estiver, retorna um erro
     except Exception as erro:
         print("Não foi possivel conectar", erro)
@@ -27,7 +27,7 @@ def insert_ent(placa, dia, horario):
     curl.commit()
     print("ok inserido na tbentrada")
 
-#função para inserir os dados na tbsaida
+# função para inserir os dados na tbsaida
 def insert_sd(placacarsd, dataentrsd, horaentrsd, datasd, horasd):
 
     curl = connect()
@@ -60,7 +60,7 @@ def read_sd():
 def delete_ent(placa):
     curl = connect()
     ordem = curl.cursor()
-    query = "DELETE FROM tbentrada where pkcodentr = %s" %placa
+    query = "DELETE FROM tbentrada where pkcodentr = %s" % placa
     ordem.execute(query)
     curl.commit()
     print("ok deletado do banco")
@@ -84,7 +84,7 @@ def check_usuario(usuario, senha):
         s = senha
         curl = connect()
         ordem = curl.cursor()
-        query = "SELECT nomeusuario, senhausuario FROM tbusuario WHERE nomeusuario = '%s' AND senhausuario = '%s'" %(u, s)
+        query = "SELECT nomeusuario, senhausuario FROM tbusuario WHERE nomeusuario = '%s' AND senhausuario = '%s'" % (u, s)
         ordem.execute(query)
         listasenha = ordem.fetchall()
         return listasenha

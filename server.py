@@ -19,10 +19,13 @@ def iniciar():
 
     if validador == [] or validador == None:
         return redirect(url_for('login'))
+
     else:
         return redirect(url_for('index'))
 
 # app para logar no site caso exista um usuario cadastrado no BD
+
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
 
@@ -35,16 +38,18 @@ def login():
             usuario = request.form['usuario']
             senha = request.form['senha']
             validador = check_usuario(usuario, senha)
-            
+
             if validador != [] or validador != None or validador != Exception:
                 return redirect(url_for('index'))
+
             else:
                 return redirect(url_for('login'))
-                
+
         return render_template('login.html')
 
     else:
         return redirect(url_for('index'))
+
 
 @app.route('/logout')
 def logout():
@@ -56,10 +61,10 @@ def logout():
 
 # App que para ir ao index da página
 @app.route('/index', methods=['GET', 'POST'])
-# função que retorna o html index salvo na pasta templates
 def index():
 
     global validador
+
     if validador != [] and validador != None and validador != Exception:
         # requisita o formulario do arquivo forms.py
         formulario = FormularioDeCadastro(request.form)
@@ -70,7 +75,7 @@ def index():
         if request.method == 'POST' and formulario.validate_on_submit():
 
             insert_ent(request.form['placa'],
-                    request.form['data'], request.form['hora'])
+                       request.form['data'], request.form['hora'])
             return redirect(url_for('index'))
 
         # função que recebe os dados cadastrados no BD e mostra no template index
@@ -83,6 +88,7 @@ def index():
         fim2 = len(lista2)
 
         return render_template('index.html', lista=lista, ini=ini, fim=fim, formulario=formulario, lista2=lista2, ini2=ini2, fim2=fim2, formulario2=formulario2)
+
     else:
         return redirect(url_for('login'))
 
@@ -97,7 +103,7 @@ def delete():
 
         placa = request.form['pkcodentr']
         insert_sd(request.form['placacarsd'], request.form['dataentrsd'],
-        request.form['horaentrsd'], request.form['datasd'], request.form['horasd'])
+                  request.form['horaentrsd'], request.form['datasd'], request.form['horasd'])
 
     delete_ent(placa)
     return redirect(url_for('index'))
