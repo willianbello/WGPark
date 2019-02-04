@@ -9,7 +9,6 @@ data = datetime.now()
 datatxt = data.strftime("%d/%m/%Y")
 horatxt = data.strftime("%H:%M:%S")
 
-
 # Cria os campos no HTML para inserir dados de entrada
 class FormularioDeCadastro(FlaskForm):
 

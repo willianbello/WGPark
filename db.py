@@ -17,8 +17,6 @@ def connect():
         print("Não foi possivel conectar", erro)
         return erro
 
-
-
 # função que insere os dados na tbentrada
 def insert_ent(placa, dia, horario):
     curl = connect()
@@ -81,10 +79,15 @@ def cadastro_usuario():
 
 # função para verificar se existe determinado usuario cadastrado no bd
 def check_usuario(usuario, senha):
-
-    curl = connect()
-    ordem = curl.cursor()
-    query = "SELECT %s, %s FROM tbusuario" %usuario %senha
-    ordem.execute(query)
-    listasenha = ordem.fetchall()
-    return listasenha
+    try:
+        u = usuario
+        s = senha
+        curl = connect()
+        ordem = curl.cursor()
+        query = "SELECT nomeusuario, senhausuario FROM tbusuario WHERE nomeusuario = '%s' AND senhausuario = '%s'" %(u, s)
+        ordem.execute(query)
+        listasenha = ordem.fetchall()
+        return listasenha
+    except Exception as erro:
+        print("Não foi possivel realizar a situação", erro)
+        return erro
