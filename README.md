@@ -20,14 +20,15 @@
     </ul>
     <ul>
         <li><h2>Instruções para instalação:</h2></li>
-        <li>Para rodar, é necessário instalar o Python3.x, Flask e frameworks necessários. É recomendado fazer em uma máquina virtual a modo de evitar conflitos com arquivos do seu SO</li>
+        <li>Para rodar, é necessário instalar o Python3.x, Flask, MySQL e frameworks necessários. É recomendado fazer em uma máquina virtual a modo de evitar conflitos com arquivos do seu SO</li>
         <ul>
-            <li><h3>Instalando Flask e demais frameworks utilizados no Windows:</h3></li>
+            <li><h3>Instalando Flask, MySQL e demais frameworks utilizados no Windows:</h3></li>
             <li>Verifique se o Python está instalado no sistema. Caso não esteja:
             <br>https://www.python.org/downloads/</li>
         </ul>
         <ul>
             <li><h3>Com o Python instalado:</h3></li>
+            <li>Baixe o MySQL conforme a versão do seu sistema em: https://dev.mysql.com/downloads/mysql/ </li>
             <li>pip install Flask</li>
             <li>pip install flask_wtf</li>
             <li>pip install wtforms</li>
@@ -45,6 +46,7 @@
         </ul>
          <ul>
             <li><h3>Com o Python instalado:</h3></li>
+            <li>apt-get install mysql_server</li>
             <li>pip install Flask</li>
             <li>pip install flask_wtf</li>
             <li>pip install wtforms</li>
@@ -58,6 +60,8 @@
 </ul>
 
 <li><h2> Utilizando o site:</h2></li>
+<li>Anter de mais nada, crie um BD. Tem um script que é só jogar no MySQL e executar, que cria todas as tabelas</li>
+<li>No arquivo bd.py tem uma função chamada "connect()" que verifica a conexão com o seu BD. Altere os parâmetros dela conforme os parâmetros que você configurou o seu BD. Os parâmetros são o host, user, password e database.</li>
 <li>Para iniciar a utilização do site, será necessário criar uma conta de ADMIN. O motivo? O motivo é que somente uma conta de administrador pode criar usuários para o site.</li>
 <li><h3>Criando uma conta de administrador:</h3></li>
 <ul>
