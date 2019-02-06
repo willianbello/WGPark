@@ -34,3 +34,9 @@ class FormularioCriacao(FlaskForm):
     nomeusuario = StringField('Usuario')
     senhausuario = StringField('Senha',)
     enviarusuario = SubmitField('Enviar')
+    
+
+class FormularioDeletar(FlaskForm):
+
+    pkcodusuario = StringField('Usuario')
+    deletarusuario = SubmitField('Deletar')

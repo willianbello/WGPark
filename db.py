@@ -67,6 +67,17 @@ def delete_ent(placa):
     curl.commit()
     print("ok deletado do banco o cadastro de veículo")
 
+# função que deleta os usuarios da tbusuarios
+def delete_usuario(id):
+
+    idusuario = id
+    curl = connect()
+    ordem = curl.cursor()
+    query = "DELETE FROM tbusuario where pkcodusuario = %s" %idusuario
+    ordem.execute(query)
+    curl.commit()
+    print("ok deletado usuario da tbusuario")
+
 # função para criar usuario e senha no BD
 def cadastro_usuario(nomeusuario, senhausuario):
     curl = connect()

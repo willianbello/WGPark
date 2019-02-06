@@ -68,18 +68,23 @@ def homeadmin():
 @app.route('/admin', methods=['GET', 'POST'])
 def admin():
 
-    formulario3 = FormularioCriacao(request.form)
+    if not session.get('logged_in_admin'):
+        return render_template('loginadmin.html')
+    else:
 
-    if request.method == 'POST':
+        formulario3 = FormularioCriacao(request.form)
+        formulario4 = FormularioDeletar(request.form)
 
-        cadastro_usuario(request.form['nomeusuario'],
-                         request.form['senhausuario'])
-        return redirect(url_for('admin'))
+        if request.method == 'POST' and formulario3.validate_on_submit:
 
-    listausuario = read_usuario()
-    ini = 0
-    fim = len(listausuario)
-    return render_template('admin.html', formulario3=formulario3, listausuario=listausuario, ini=ini, fim=fim)
+            cadastro_usuario(request.form['nomeusuario'],
+                            request.form['senhausuario'])
+            return redirect(url_for('admin'))
+
+        listausuario = read_usuario()
+        ini = 0
+        fim = len(listausuario)
+        return render_template('admin.html', formulario3=formulario3, formulario4=formulario4, listausuario=listausuario, ini=ini, fim=fim)
 
 # Desloga usuário e admin caso o mesmo solicite a opção de configuração e envia para homeadmin
 @app.route('/logoutadmin')
@@ -93,7 +98,9 @@ def logoutadmin():
 @app.route('/index', methods=['GET', 'POST'])
 def index():
 
-    if session['logged_in'] == False:
+    if session['logged_in'] == False or session['logged_in_admin'] == True and session['logged_in'] == True:
+        session['logged_in_admin'] = False
+        session['logged_in'] = False
         return home()
     else:
         # requisita o formulario do arquivo forms.py
@@ -135,6 +142,19 @@ def delete():
     delete_ent(placa)
     return redirect(url_for('index'))
 
+# App que deleta usuarios da tbusuarios
+@app.route('/deleteusuario', methods=['GET', 'POST'])
+def deleteusuario():
+
+    usuario = None
+
+    formulario4 = FormularioDeletar(request.form)
+
+    if request.method == 'POST' and formulario4.validate_on_submit():
+        usuario = request.form['pkcodusuario']
+        
+    delete_usuario(usuario)
+    return redirect(url_for('homeadmin'))
 
 # inicia o servidor
 if __name__ == "__main__":

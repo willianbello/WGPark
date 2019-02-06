@@ -7,8 +7,9 @@
 </head>
 
 <body>
-    <div class="content-section">
-        <form method="POST" action="/admin">
+    <form method="POST" action="/admin">
+        {{ formulario3.csrf_token }}
+        <div class="content-section">
             <h1>CADASTRO DE USUARIOS:</h1>
             <h3><a href="/logoutadmin">Logout</a></h3>
             {{ formulario3.nomeusuario }}
@@ -16,23 +17,28 @@
             {{ formulario3.senhausuario }}
             <br>
             {{ formulario3.enviarusuario }}
-        </form>
-    </div>
+
+        </div>
+    </form>
     <br>
     <br>
-    <table border="1">
-        {% for ini in range(ini, fim): %}
-        <tr>
-            <td>#</td>
-            <td>Usuário</td>
-        </tr>
-        <tr>
-            <th scope="row">{{ listausuario[ini][0] }}</th>
-            <td>{{ listausuario[ini][1] }}</td>
-            <td>Delete</td>
-        </tr>
-        {% endfor %}
-    </table>
+    {% for ini in range(ini, fim): %}
+    <form method="POST" action="/deleteusuario">
+        {{ formulario4.csrf_token }}
+        <table border="1">
+            <tr>
+                <td>#</td>
+                <td>Usuários:</td>
+            </tr>
+            <tr>
+                <th scope="row">{{ listausuario[ini][0] }}</th>
+                <td>{{ listausuario[ini][1] }}</td>
+                {{ formulario4.pkcodusuario(hidden=hidden, readonly="readonly", value=listausuario[ini][0])}}
+                <td>{{ formulario4.deletarusuario }} </td>
+            </tr>
+        </table>
+    </form>
+    {% endfor %}
 </body>
 
 </html>

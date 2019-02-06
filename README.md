@@ -56,3 +56,16 @@
         </ul>
     </ul>
 </ul>
+
+<li><h2> Utilizando o site:</h2></li>
+<li>Para iniciar a utilização do site, será necessário criar uma conta de ADMIN. O motivo? O motivo é que somente uma conta de administrador pode criar usuários para o site.</li>
+<li><h3>Criando uma conta de administrador:</h3></li>
+<ul>
+    <li>Em bd.py, existe uma função chamada cadastro_admin. Para utiliza-la, basta ir até o rodapé do arquivo e declarar a mesma desta forma: "cadastro_admin()" sem as aspas, sem identação, sem nada, somente isso.</li>
+    <li>Abra um terminal conforme sua IDE. No meu caso, é o VSCODE(recomendo o uso do memso, pois é easy de usar). Vá em "Terminal" depois "New terminal". Navegue até a pasta onde está o bd.py e digite no terminal: "python3 bd.py" sem aspas.</li>
+    <li>No terminal aparecerão solicitações de criação de login e senha. Faça a criação conforme desejar.</li>
+    <li>Execute o server.py com "python3 server.py" e como um passe de mágica, ele irá gerar um sevidor web de endereço: http://127.0.0.1:5000/</li>
+    <li>Digite /admin ao lado do endereço e você será direcionado para a página de admin. Faça login com o usuário e senha que acabou de criar e terá acesso a página de criação de usuários para o site. Note que o layout foi feito pelo responsável pelo backend, releve.</li>
+    <li>Depois de criar os usuários desejados, também será possível deletar os mesmos. Usuários administradores não podem ser deletados até o momento, mas em breve essa funcionalidade vai surgir.<li>
+    <li>Volte ao endereço http://127.0.0.1:5000, logue com o usuario de acesso recém criado e aproveite esta bela obra de arte</li>
+</ul>
