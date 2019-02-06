@@ -3,70 +3,99 @@ from flask import *
 from db import *
 from forms import *
 
-# essa variavel global salva o login e senha para ficar persistindo caso a pessoa já esteja logada, impedindo de acessar novamente
-# outras partes do site, como o /login
-validador = None
-validadoradmin = None
 
 # instancia o app
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'teste'
 
-# inicia o site
+# inicia o site e se não existir usuario logado, envia para a página de login
 @app.route('/')
-def iniciar():
+def home():
 
-    global validador
-
-    if validador == [] or validador == None:
-        return redirect(url_for('login'))
-
+    if not session.get('logged_in'):
+        return render_template('login.html')
     else:
         return redirect(url_for('index'))
 
 # app para logar no site caso exista um usuario cadastrado no BD
-
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
 
-    global validador
+    if not session.get('logged_in'):
 
-    if validador == [] or validador == None:
+        validador = check_usuario(
+            request.form['usuario'], request.form['senha'])
 
-        if request.method == 'POST':
+        if validador != [] and validador != None and validador != Exception:
+            session['logged_in'] = True
+        else:
+            flash('Login ou senha errada, tente novamente')
 
-            usuario = request.form['usuario']
-            senha = request.form['senha']
-            validador = check_usuario(usuario, senha)
+    return home()
 
-            if validador != [] or validador != None or validador != Exception:
-                return redirect(url_for('index'))
-
-            else:
-                return redirect(url_for('login'))
-
-        return render_template('login.html')
-
-    else:
-        return redirect(url_for('index'))
-
-
+# Desloga um usuário caso o mesmo realize tal solicitação
 @app.route('/logout')
 def logout():
 
-    global validador
+    session['logged_in'] = False
+    return home()
 
-    validador = None
-    return redirect(url_for('login'))
+# App que mostra a page de login da administração
+@app.route('/loginadmin', methods=['GET', 'POST'])
+def loginadmin():
+
+    if not session.get('logged_in_admin'):
+
+        validador = check_admin(request.form['usuario'], request.form['senha'])
+
+        if validador != [] and validador != None and validador != Exception:
+            session['logged_in_admin'] = True
+        else:
+            flash('Login ou senha errada, tente novamente')
+
+    return homeadmin()
+
+# App para caso o usuário não esteja logado como admin, redireciona o mesmo para a page de loginadmin
+@app.route('/homeadmin', methods=['GET', 'POST'])
+def homeadmin():
+
+    if not session.get('logged_in_admin'):
+        return render_template('loginadmin.html')
+    else:
+        return redirect(url_for('admin'))
+
+# page que cria usuários para utilizar o site
+@app.route('/admin', methods=['GET', 'POST'])
+def admin():
+
+    formulario3 = FormularioCriacao(request.form)
+
+    if request.method == 'POST':
+
+        cadastro_usuario(request.form['nomeusuario'],
+                         request.form['senhausuario'])
+        return redirect(url_for('admin'))
+
+    listausuario = read_usuario()
+    ini = 0
+    fim = len(listausuario)
+    return render_template('admin.html', formulario3=formulario3, listausuario=listausuario, ini=ini, fim=fim)
+
+# Desloga usuário e admin caso o mesmo solicite a opção de configuração e envia para homeadmin
+@app.route('/logoutadmin')
+def logoutadmin():
+
+    session['logged_in'] = False
+    session['logged_in_admin'] = False
+    return homeadmin()
 
 # App que para ir ao index da página
 @app.route('/index', methods=['GET', 'POST'])
 def index():
 
-    global validador
-
-    if validador != [] and validador != None and validador != Exception:
+    if session['logged_in'] == False:
+        return home()
+    else:
         # requisita o formulario do arquivo forms.py
         formulario = FormularioDeCadastro(request.form)
         formulario2 = FormularioDeExclusao(request.form)
@@ -90,9 +119,6 @@ def index():
 
         return render_template('index.html', lista=lista, ini=ini, fim=fim, formulario=formulario, lista2=lista2, ini2=ini2, fim2=fim2, formulario2=formulario2)
 
-    else:
-        return redirect(url_for('login'))
-
 # App que deleta os cadastros no BD
 @app.route('/delete', methods=['GET', 'POST'])
 def delete():
@@ -108,45 +134,6 @@ def delete():
 
     delete_ent(placa)
     return redirect(url_for('index'))
-
-# App que mostra a page da administração e redireciona para a page de administração de usuarios
-@app.route('/config', methods=['GET', 'POST'])
-def config():
-
-    global validadoradmin
-    formulario3 = FormularioConfiguracao(request.form)
-    validadoradmin = None
-
-    if request.method == 'POST' and formulario3.validate_on_submit():
-
-        usuario = request.form['usuario']
-        senha = request.form['senha']
-        validadoradmin = check_admin(usuario, senha)
-    
-        if validadoradmin != [] and validadoradmin != None and validadoradmin != Exception:
-            return redirect(url_for('admin'))
-
-
-    return render_template('config.html',formulario3=formulario3)
-
-# page que cria usuários para o site
-@app.route('/admin', methods=['GET', 'POST'])
-def admin():
-
-    global validadoradmin
-    validadoradmin = None
-
-    formulario4 = FormularioCriacao(request.form)
-
-    if request.method == 'POST' and formulario4.validate_on_submit():
-
-        cadastro_usuario(request.form['nomeusuario'], request.form['senhausuario'])
-        return redirect(url_for('admin'))
-
-    listausuario = read_usuario()
-    ini = 0
-    fim = len(listausuario)
-    return render_template('admin.html', formulario4=formulario4, listausuario=listausuario, ini=ini, fim=fim)
 
 
 # inicia o servidor

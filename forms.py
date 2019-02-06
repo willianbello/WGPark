@@ -28,14 +28,9 @@ class FormularioDeExclusao(FlaskForm):
     horasd = StringField('Hora saída', render_kw={"readonly"" ""value": horatxt})
     remover = SubmitField('Remover veículo', render_kw={"class": "btn btn-success"})
 
-class FormularioConfiguracao(FlaskForm):
-
-    usuario = StringField('Usuario', id="usuario")
-    senha = PasswordField('Senha', id="senha")
-    enviar = SubmitField('Enviar', render_kw={"class": "btn btn-success"})
-
+# Cria os campos no HTML para inserir os dados de usuario
 class FormularioCriacao(FlaskForm):
 
-    nomeusuario = StringField('Usuario', id="nomeusuario")
-    senhausuario = StringField('Senha', id="senhausuario")
+    nomeusuario = StringField('Usuario')
+    senhausuario = StringField('Senha',)
     enviarusuario = SubmitField('Enviar')

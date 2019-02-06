@@ -74,7 +74,6 @@ def cadastro_usuario(nomeusuario, senhausuario):
     query = "INSERT INTO tbusuario (nomeusuario, senhausuario) VALUES (%s, %s)"
     cadastro = (nomeusuario, senhausuario)
     ordem.execute(query, cadastro)
-    print(query)
     curl.commit()
     print("ok inserido cadastro na tbusuario")
 
@@ -100,9 +99,10 @@ def check_usuario(usuario, senha):
         query = "SELECT nomeusuario, senhausuario FROM tbusuario WHERE nomeusuario = '%s' AND senhausuario = '%s'" % (u, s)
         ordem.execute(query)
         lista_us = ordem.fetchall()
+        print("Ok verificado o usuario e senha na tbusuario")
         return lista_us
     except Exception as erro:
-        print("Não foi possivel realizar a solicitação de leitura de usuario", erro)
+        print("Não foi possivel realizar a solicitação de leitura de usuario na tbusuario", erro)
         return erro
 
 # função para verificar se existe determinado admin cadastrado no bd
@@ -115,9 +115,10 @@ def check_admin(usuarioadmin, senhaadmin):
         query = "SELECT nomeadmin, senhaadmin FROM tbadmin WHERE nomeadmin = '%s' AND senhaadmin = '%s'" % (ua, sa)
         ordem.execute(query)
         lista_uasa = ordem.fetchall()
+        print("Ok verificado o usuario e senha na tbadmin")
         return lista_uasa
     except Exception as erro:
-        print("Não foi possivel realizar a solicitação de leitura de admin", erro)
+        print("Não foi possivel realizar a solicitação de leitura de admin na tbadmin", erro)
         return erro
 
 # função que fornece a leitura dos usuarios cadastrados pelos administradores
